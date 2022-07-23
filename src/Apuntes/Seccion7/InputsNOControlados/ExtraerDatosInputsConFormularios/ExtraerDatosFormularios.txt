@@ -1,0 +1,71 @@
+import React, { Component } from "react";
+
+class InputiNoControlado extends Component { 
+  handleSubmit = (event) => {
+    event.preventDefault() // con este metodo solucionamos el probela de que se recarga la pagina al dar submit o click en enviar
+    const nombre = event.target[0].value // el indice 0 -[0]- hace reperenci al input nombre, y el 1 al email
+    const email = event.target[1].value
+
+    // Manejando datos
+    this.props.onSend({ nombre, email })
+  }
+
+  render () {
+    return (
+      <form onSubmit={this.handleSubmit}>
+        <input 
+          type="text" 
+          placeholder='Nombre'
+        />
+        <input 
+          type="text"
+          placeholder='Email'
+        />
+        <button>
+          Enviar
+        </button>
+      </form>      
+    )
+  }
+}
+
+const Unicorn = () => ( // forma correcta de ingresar un emoji
+  <span role='img' arial-label='unicornio'>
+    🦄
+  </span>
+)
+
+class App extends Component {
+
+  send = (data) => {
+    console.log(data)
+  }
+
+  render () {
+    return (
+      <div>
+        <h1>
+          Inputs NO controlados a traves de Formularios <Unicorn />
+        </h1>
+        <InputiNoControlado
+          onSend={this.send}
+        />
+      </div>
+    )
+  }
+}
+
+
+export default App
+
+NOTA!!!:
+--> Ventajas:
+1.Todo el codigo es facil de manejar
+2. Con el metodo de formulacio, se asemeja a los estilos de HTML
+
+--> Desventaja
+La principal desventaja de extraer informacion de inputs no controlado,
+es que esta informacion no la podemos ir revisando a medida que esta cambia
+(a medida que el usiario va escribiendo informacion, borrando o corrigiendo, y volver a escribor en los inputs),
+puesto que la informacion ingresada solo se puede validar o revisar, hasta que
+el usuario da click en enviar (o el boton submit habilitado)

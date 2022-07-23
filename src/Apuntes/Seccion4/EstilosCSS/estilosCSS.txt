@@ -1,0 +1,52 @@
+import React from "react";
+import './TarjetaFruta.css';
+
+class TarjetaFruta extends React.Component { 
+    state = { 
+      cantidad: 0
+    }
+  
+    agregar = () => { 
+      this.setState({ 
+        cantidad: this.state.cantidad + 1 
+      }) 
+    }
+  
+    quitar = () => this.setState({ 
+        cantidad: this.state.cantidad - 1 
+      }) 
+  
+    limpiar = () => this.setState({ 
+        cantidad: 0 
+      }) 
+    
+
+    // ESTILOS CSS CON CLASES 
+    
+    render = () => { 
+      const hasItems = this.state.cantidad > 0 // Para clases dinamicas
+      const clases = `TarjetaFruta ${hasItems ? 'TarjetaFruta-activa' : ''}` // De esta manera le ponemos estilos por defecto con la clase TarjetaFruta y si hay algun cambio (si la cantidad es mayor a 0), se le aplican los estilos por defecto mas los nuevos de la clase TrajetaFruta-activa
+      // Otra forma de hacer esto anterior es:
+      // const activeClass = hasItems ? 'TrajetaFruta-activa' : ''
+      // const clases = `TarjetaFruta ${activeClass}`
+
+
+      return (
+      <div className={clases}>
+        <h3>{ this.props.name }</h3>
+        <div>Cantidad: { this.state.cantidad }</div>
+        <button onClick={this.agregar}> + </button> 
+        <button onClick={this.quitar}> - </button>
+        <button onClick={this.limpiar}> Limpiar </button>
+        <hr/>
+        <p> $ { this.props.price }</p>
+        <p>
+          Total: ${ this.props.price * this.state.cantidad } 
+        </p>
+      </div>
+      )
+    }
+  }
+
+  export default TarjetaFruta
+

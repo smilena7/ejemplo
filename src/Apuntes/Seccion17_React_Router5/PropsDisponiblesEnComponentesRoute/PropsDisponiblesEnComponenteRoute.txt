@@ -1,0 +1,46 @@
+import React from 'react'
+import { BrowserRouter, Route } from 'react-router-dom'
+
+const Hola = () => (
+  <h1>Hola</h1>
+)
+
+const Productos = () => (
+  <h1>Productos</h1>
+)
+
+const Home = () => (
+  <h1>Home</h1>
+)
+
+/* const HolaSandy = () => (
+  <h1>Hola Sandy</h1>
+) */
+
+const App = () => {
+  return (
+    <BrowserRouter>
+      <Route path='/' exact component={Home} /> 
+      <Route path='/hola/' stric component={Hola} />
+      {/* <Route path='/hola/Sandy' component={HolaSandy} /> */}
+      <Route path='/productos' sensitive component={Productos} />
+    </BrowserRouter>
+  )
+}
+
+export default App
+
+// Nota: Este es el componente padre (principal) {}
+
+// Prop excat
+// Nota: Cuando queremos que la ruta coincida con la ruta raiz (es decir con el localhost:300), a la prop path solo le pasamos un '/'
+// Con la prop exact={true} o exact (por si sola de ejecuta como true por defecto), evitamos que la ruta raiz se cargue en caso dado de mandar a llamar otra ruta que utilice el /, ej: '/hola'
+// ADEMAAAS, la prop exact tambien nos sirve para evitar ejecutar rutas anidad, por ejemplo ver lineas 21 y 16
+// Para evitar esto, podemos pasar la prop excact en el componente Route 
+
+// Prop strict
+// Con la prop stric lo que hacemos es el la ruta sea practicamente estricta con a la hora de ponerlo en la web, por ejemplo si en la prop path que tenemos en el componente Route de la linea 24,
+// ponemos la ruta path='/hola/', y si este componente Route tiene la prop strict, a la hora de poner en el navegador es necesario poner el / final, de lo contratio no funcionara. Si caso con tratio, esta prop strict no se le pone a dicho componente, si podria funcionar normalmente con o sin el / final
+
+// Prop sensitive
+// Esta prop es para que las rutas sean sensibles a mayusculas o minuculas (ver linea 26)

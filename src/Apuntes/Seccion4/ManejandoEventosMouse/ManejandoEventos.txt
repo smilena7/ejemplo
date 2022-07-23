@@ -1,0 +1,73 @@
+import React, { Component } from "react";
+// import TarjetaFruta from './componentes/TarjetaFruta/TarjetaFruta';
+
+
+
+class App extends Component {
+  manejador = () => { // si por ejemplo si dentro de manejador vamos a hacer alguna mutacion del estado del componente a traves de algun metodo por ejemplo el this.setState, tenemos que trasnformar este metodo manejador a una arrow function asi manejador = () => {}
+    alert('Hey Ninja')
+  }
+
+  render () {
+    return (
+      <div>
+        {/* <TarjetaFruta name='Sandia' price={300} /> */}
+        <button
+          onClick={this.manejador} /*  como estamos dentro de un componente basado en una calse, debemos usar la palabra reservada this para oder apuntar al este metodo */
+        >
+          Dispara
+        </button>
+      </div>
+    ) 
+  } 
+}
+
+  export default App
+
+// OTRO EJEMPLO MAS DINAMICO:
+
+import React, { Component } from "react";
+// import TarjetaFruta from './componentes/TarjetaFruta/TarjetaFruta';
+
+
+const styles = {
+  height: '200px',
+  background: 'gold',
+  padding: '1em',
+  boxSizing: 'border-box'
+}
+
+class App extends Component {
+  state = {
+    x: 0,
+    y: 0
+  }
+
+  manejador = (event) => { // si por ejemplo si dentro de manejador vamos a hacer alguna mutacion del estado del componente a traves de algun metodo por ejemplo el this.setState, tenemos que trasnformar este metodo manejador a una arrow function asi manejador = () => {}
+    this.setState({
+      x: event.clientX,
+      y: event.clientY
+    })
+  }
+
+  render () {
+    return (
+      <div 
+        style={styles} 
+        onMouseMove={this.manejador}
+      >
+        {/* <TarjetaFruta name='Sandia' price={300} /> */}
+        <div>
+          x: { this.state.x }
+        </div>
+        <div>
+          y: { this.state.y }
+        </div>
+      </div>
+    ) 
+  } 
+}
+
+  export default App
+
+  // Nota: Este es el componente padre (principal)

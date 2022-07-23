@@ -1,0 +1,72 @@
+import React, { useState, useEffect, useLayoutEffect } from "react"; // Esto es importar con destructuracion
+
+const Header = () => {
+  const styles = {
+    background: 'linear-gradient(20deg, #6813cb, #2575fc)',
+    textAlign: 'center',
+    borderRadius: '0.2em',
+    color: '#FFF',
+    padding: '0.3em',
+    margin: '0.3em',
+    fontSize: '14px'
+  }
+
+  return (
+    <header style={styles}>
+      <h1>
+        Entendiendo el Hook useLayoutEffect 
+        <span
+          role='img'
+          aria-label='hook emoji'
+        >
+          ⚓
+        </span> 
+      </h1>
+    </header>
+  )
+}
+
+const App = () => {
+  const [ count, setCount ] = useState(0)
+
+  useEffect(() => {
+    console.log('useEffect 1')
+  }, [ count ])
+
+  useEffect(() => {
+    console.log('useEffect 2')
+  }, [ count ])
+
+  useLayoutEffect(() => {
+    console.log('useLayoutEffect 1')
+  }, [ count ])
+
+  useLayoutEffect(() => {
+    console.log('useLayoutEffect 2')
+  }, [ count ])
+
+  const add = () => setCount(count + 1)
+
+  return (
+    <div>
+      <Header />
+      <button onClick={add}>
+        Add ({ count })
+      </button>
+    </div>
+  )
+}
+
+
+export default App
+
+
+// NOTA: Se debe importar el useLayoutEffect
+
+// El hook useLayoutEffect es muy similar al de useEffect:
+// - Tanto los useEffect como los useLayoutEffect se disparan de forma consecutiva, es decir, sin el la consola ponemos una lista de useEffect (1 y 2) al igual que de los useLayoutEffect, primero se mostrara el que primero se llame (1 y luego el 2)
+// - Pero, la diferencia es que primero se dispararan en la consola los useLayoutEffect antes que los useEffect, aunque estos ulimos hayan sido ejecutado primero 
+// Estos tienen DOS principales DIFERENCIAS:
+// 1. El useEffect es asincrono y useLayoutEffect es sincrono
+// 2. La otra diferencia es que el useEffect se va a ejecutar de forma asincorna despues que se realice la actualizacion en el dom
+// y en el caso del useLayoutEffect, se ejecuta antes de la actualizacion en el dom

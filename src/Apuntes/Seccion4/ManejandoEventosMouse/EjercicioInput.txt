@@ -1,0 +1,96 @@
+import React, { Component } from "react";
+
+
+class App extends Component {
+  state = { // TERCERO: inicializar ele estado
+    text: '',
+  }
+
+  manejador = (event) => { // SEGUNDO: crear un metodo con arrow function
+    console.log(event.target.value) // NOTA: eco esto verificamo en consola que todo estè funcionando
+
+    this.setState({ // CUARTO: actualizar el estado
+      text: event.target.value
+    })
+  } 
+
+  add = () => {
+    alert(this.state.text)
+  }
+
+  render () {
+    return (
+      <div>
+
+        <input // PIRMERO: definir en el div el input. QUIENTO: podemos imprimir en un h1 o la etiqueta que queramos el valor de los usuarios
+          type="text"
+          onChange={this.manejador}
+        > 
+        </input> 
+
+        <button onClick={this.add}>
+          Pincha aquí
+        </button>
+      </div>
+    ) 
+  } 
+}
+
+  export default App
+
+// MISMO EJEMPLO PERO MEJORADO
+
+import React, { Component } from "react";
+
+const styles = {
+  background: 'rgb(94, 18, 166)',
+  borderRadius: '50px',
+  color: 'white',
+  border: 'none',
+  height: '30px',
+  cursor: 'pointer'
+}
+
+class App extends Component {
+  state = { // TERCERO: inicializar ele estado
+    text: '',
+  }
+
+  manejador = (event) => { // SEGUNDO: crear un metodo con arrow function
+    console.log(event.target.value) // NOTA: eco esto verificamo en consola que todo estè funcionando
+
+    this.setState({ // CUARTO: actualizar el estado
+      text: event.target.value
+    })
+  } 
+
+  add = () => {
+    // alert(this.state.text)
+
+    if(!this.state.text) {
+      return null
+    } else {
+      alert(this.state.text)
+    }
+  }
+
+  render () {
+    return (
+      <div>
+
+        <input // PIRMERO: definir en el div el input. QUIENTO: podemos imprimir en un h1 o la etiqueta que queramos el valor de los usuarios
+          type="text"
+          onChange={this.manejador}
+        > 
+        </input> 
+
+        <button onClick={this.add} style={styles}>
+          Pincha aquí
+        </button>
+      </div>
+    ) 
+  } 
+}
+
+  export default App
+

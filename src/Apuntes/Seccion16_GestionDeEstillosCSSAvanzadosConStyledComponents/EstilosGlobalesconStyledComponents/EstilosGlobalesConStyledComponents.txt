@@ -1,0 +1,96 @@
+import React from "react"
+import styled, { createGlobalStyle } from "styled-components"
+
+const GlobalSyle = createGlobalStyle`
+  body {  
+    @import url('https://fonts.googleapis.com/css?family=Oswald&display=swap');
+    font-family: 'Oswald', sans-serif;
+  }
+`
+
+const Header = styled.header` // componente estilizado de styled-components
+  background: #db7093;
+  text-align: center;
+  border-radius: 0.2em;
+  color: #FFF;
+  padding: 0.3em;
+  margin: 0.3em;
+  font-size: 14px;
+`
+
+
+
+const App = () => {
+  return (
+    <div>
+      <GlobalSyle />
+      <Header>
+        <h1> 
+          Styled Components
+        </h1>
+      </Header>
+    </div>
+  )
+}
+
+export default App
+
+
+// Estilos globales
+// Son muy necesarios para ciertas propiedades (por ejemplo tipoprafia, fuentes, ect)
+// Nota: Para poder hacer uso de estilos gloables dentro de styled-components, es necesario importar una utilidad que se llama createGlobalStyle
+// Posteriormente, se debe crear un componente estilizado donde se van a almacenar los estilos globales
+
+
+
+
+
+
+// OTRA FORMA DE HACER USO DE LOS ESTILOS GLOABLES ES A TRAVES DE PROPS:
+
+
+
+
+import React from "react"
+import styled, { createGlobalStyle } from "styled-components"
+
+const GlobalSyle = createGlobalStyle`
+  body {  
+    @import url('https://fonts.googleapis.com/css?family=Oswald&display=swap');
+    font-family: ${props => props.font} // uso de la prop font (ver nilea 26)
+  }
+`
+
+const Header = styled.header` // componente estilizado de styled-components
+  background: #db7093;
+  text-align: center;
+  border-radius: 0.2em;
+  color: #FFF;
+  padding: 0.3em;
+  margin: 0.3em;
+  font-size: 14px;
+`
+
+
+
+const App = () => {
+  return (
+    <div>
+      <GlobalSyle font="'Oswald', sans-serif"/>
+      <Header>
+        <h1> 
+          Styled Components
+        </h1>
+      </Header>
+    </div>
+  )
+}
+
+export default App
+
+// Nota: Este es el componente padre (principal) {}
+
+// Estilos globales
+// Son muy necesarios para ciertas propiedades (por ejemplo tipoprafia, fuentes, ect)
+// Nota: Para poder hacer uso de estilos gloables dentro de styled-components, es necesario importar una utilidad que se llama createGlobalStyle
+// Posteriormente, se debe crear un componente estilizado donde se van a almacenar los estilos globales

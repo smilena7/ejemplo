@@ -1,0 +1,48 @@
+import React from "react"
+import styled from "styled-components"
+
+
+const Header = styled.header` // componente estilizado de styled-components
+  background: #db7093;
+  text-align: center;
+  border-radius: 0.2em;
+  color: #FFF;
+  padding: 0.3em;
+  margin: 0.3em;
+  font-size: 14px;
+`
+
+const Button = styled.button`
+  padding: 0.6em 1.5em;
+  background: ${(props) => props.bg || 'black'}; // se lee: si no se me pasa la propiedad bg, entonces el color del boton es black por defecto
+  border-radius: 0.1em;
+  color: #FFF;
+  border: 0;
+  margin: 0.4em;
+`
+
+const App = () => {
+  return (
+    <div>
+        <Header>
+          <h1> 
+            Style Components
+          </h1>
+        </Header>
+        <Button>
+          Un Boton
+        </Button>
+        <Button bg='orangered'>
+          Toggle
+        </Button>
+    </div>
+  )
+}
+
+export default App
+
+// Linea 17: Si se quiere por ejemplo tener 2 botones con las mismos estilos pero cambiando el color de fondo (background), lo ideo es no es copiar todo el codigo y cambiar de nombre del componente estilizado, sino
+// hacer uso de las props. Esto se hace con la sintasis ${} y dentro de este de hace un llamado de un arrow function para poder hacer uso de la prop dentro del parametro de la funcion, asi:
+// ${(props) => props.bg} (este bg es el nombre se la prop), de esta manera retornamos dirctamente que para el el background sea lo que me llega desde las props a trave de la prop bg
+// Luego hacemos un condicional terneario haciendo uso de ||, asi:
+// ${(props) => props.bg || 'black'}

@@ -1,0 +1,46 @@
+import React from "react"
+import styled from "styled-components"
+
+// Constante basica 
+const colorPrincipal = 'tomato'
+
+// Constante completa
+const paddingBasic = 'padding: 1em' 
+
+// Variables dinamicas
+const getLinearGradient = (rot, color1, color2) => { // Para poder hacer que esta informacion pueda ser dinamica se la tenemos que pasar a traves de los parametro (), por ejemplo la toracion que va a tener el color1 y el color2 (rot, color1, color2)
+  return `background: linear-gradient(${rot}, ${color1}, ${color2});`
+}
+
+const Header = styled.header` // componente estilizado de styled-components
+  ${getLinearGradient('50deg', 'blue', 'red')}
+  /* ${getLinearGradient('50deg', colorPrincipal, 'red')} - Otra forma de utilizarlo es haciendo uso de la constante colorPrincipal que habimos definido previamente*/ 
+  text-align: center;
+  border-radius: 0.2em;
+  color: #FFF;
+  ${paddingBasic};
+  margin: 0.3em;
+  font-size: 14px;
+`
+
+const Subtitle = styled.h2` // componente estilizado de styled-components
+  color: ${colorPrincipal};
+`
+
+const App = () => {
+  return (
+    <div>
+        <Header>
+          <h1>
+            Styled Components
+          </h1>
+        </Header>
+        <Subtitle>
+          Ejemplo de título
+        </Subtitle>
+    </div>
+  )
+}
+
+export default App
+

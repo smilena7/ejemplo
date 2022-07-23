@@ -1,0 +1,72 @@
+import React, { Component } from "react"; 
+import './global.css';
+
+// Ejmplo de children con estados:
+/* class Parent extends Component {
+  // dos formas de obetenr los childres:
+  // 1. Usando this.props.children en la expresion dentro de las llaves 
+  // 2. con destructuracion:
+  const { children } = this.props
+  render () {
+    return (
+      <div className="box">
+        <div className="box blue">
+          { children }
+        </div>
+        <div className="box red">
+           { children }
+        </div>
+    </div>
+    )
+  }
+}  */
+
+const Parent = ({ children }) => {
+  return (
+    <div className="box">
+      <div className="box blue">
+      </div>
+      <div className="box red">
+        { children }
+      </div>
+    </div>
+  )
+}
+
+class App extends Component {
+  render () {
+    return (
+      <div>
+        <Parent>
+          Hijo de texto
+        </Parent>
+      </div>
+    )
+  }
+}
+
+export default App
+
+
+// NOTA: Para poder hacer uso de children en el componente que llamamos desde el marcado, es necesario las dos etiquetas (de apertura y de cierre)
+
+// A TENER EN CUENTA:
+// 1. El padre decide si mostrar o no los elementos que se agregren desde componente Parent que esta en App, es decir, si en app ponemos una etiqueta por ejemplo h1 y dentro de ella un titulo, cualuqier, y si no lo mandamos a llamar dentro de los marcados del componente funcional Parent, este no se mostrara
+// 2. El componente padre, en este caso el componente funcional Parent, decide donde o en que marcado mostrar los datos que se pongan en el componente Parent que se encuentra en App (puede ser por ejemplo que se muestre en el contenedor blue o red, o el que se desee. O ambos)
+// 3. A traves de los children de un componente podemos pasarle cualquier tipo de valor (textos, elementos o etiquetas, componentes, y usando las expresiones {} se puede pasar arrays, numeros, obketos template stings, funciones)
+
+// ESTILOS CSS
+.box {
+    padding: 0.5em;
+    margin: 0.5em;
+    border-radius: 0.3em;
+    border: 2px dashed gray;
+}
+
+.blue {
+    border: 2px dashed blue;
+}
+
+.red {
+    border: 2px dashed red;
+}

@@ -1,0 +1,78 @@
+import React, { Component } from "react"; 
+import './global.css';
+
+// Ejmplo de children con componente estatal:
+class Parent extends Component {
+  render () {
+    const { children: ch } = this.props // con ch renombramos la destructuracion children
+
+    // Utilidades para poder tratar a los children (tratar el error de renderizar una funcion - linea 42)
+    const children = React.Children.map(ch, (child, index) => { // esta funcion se ejecutara por cada child, es decir, por cada hijo que le pasemos. El segundo parametro que recibe es el indice del elemento
+      if (index === 0) { // esto se lee: si index es igual a cero, entonces que regrese el primer hijo o podria ignorar al primero asi index !== 0 return child
+        return child
+      }
+    })
+
+    return (
+      <div className="box">
+        <div className="box blue">
+          { children }
+        </div>
+    </div>
+    )
+  }
+}  
+
+// Ejemplo children con componente funcional
+/* const Parent = ({ children }) => {
+  return (
+    <div className="box">
+      <div className="box blue">
+        { children }
+      </div>
+      <div className="box red">
+      </div> 
+    </div>
+  )
+} */
+
+class App extends Component {
+  render () {
+    return (
+      <div>
+        <Parent>
+          Hijo de texto
+          <div>Elementos</div>
+          { () => {} }
+          { 444 }
+          { `la suma es ${ 5 + 5 }` }
+        </Parent>
+      </div>
+    )
+  }
+}
+
+export default App
+
+// NOTA: Para poder hacer uso de children en el componente que llamamos desde el marcado, es necesario las dos etiquetas (de apertura y de cierre)
+
+// A TENER EN CUENTA:
+// 1. El padre decide si mostrar o no los elementos que se agregren desde componente Parent que esta en App, es decir, si en app ponemos una etiqueta por ejemplo h1 y dentro de ella un titulo, cualuqier, y si no lo mandamos a llamar dentro de los marcados del componente funcional Parent, este no se mostrara
+// 2. El componente padre, en este caso el componente funcional Parent, decide donde o en que marcado mostrar los datos que se pongan en el componente Parent que se encuentra en App (puede ser por ejemplo que se muestre en el contenedor blue o red, o el que se desee. O ambos)
+
+// ESTILOS CSS 
+
+.box {
+    padding: 0.5em;
+    margin: 0.5em;
+    border-radius: 0.3em;
+    border: 2px dashed gray;
+}
+
+.blue {
+    border: 2px dashed blue;
+}
+
+.red {
+    border: 2px dashed red;
+}

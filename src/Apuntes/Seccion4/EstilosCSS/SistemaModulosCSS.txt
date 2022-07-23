@@ -1,0 +1,52 @@
+import React from "react";
+// import './TarjetaFruta.css';
+import styles from './TarjetaFruta.module.css'; // SISTEMA DE MODULOS CSS
+
+
+class TarjetaFruta extends React.Component { 
+    state = { 
+      cantidad: 0
+    }
+  
+    agregar = () => { 
+      this.setState({ 
+        cantidad: this.state.cantidad + 1 
+      }) 
+    }
+  
+    quitar = () => this.setState({ 
+        cantidad: this.state.cantidad - 1 
+      }) 
+  
+    limpiar = () => this.setState({ 
+        cantidad: 0 
+      }) 
+    
+    render = () => { // SISTEMA DE MODULOS CSS NOTA: el archivo .css no cambia en cuanto a contenidos o forma de llamar las clases el nombre por ejemplo. Solo cambia el nombre del file .css por ejemplo TarjetaFruta.module.css
+      const hasItems = this.state.cantidad > 0 // Para clases dinamicas
+      const activeClass = hasItems ? styles['card-active'] : ''
+      const clases = styles.card + ' ' + activeClass 
+
+      // Nota: para mandar a llamar los estilos con este sistema:
+      // styles.card -cuando se nombra con una sola palabra 
+      // styles['card-active'] -cuando se nombra con mas de una palabra
+
+      return (
+      <div className={clases}>
+        <h3>{ this.props.name }</h3>
+        <div>Cantidad: { this.state.cantidad }</div>
+        <button onClick={this.agregar}> + </button> 
+        <button onClick={this.quitar}> - </button>
+        <button onClick={this.limpiar}> Limpiar </button>
+        <hr/>
+        <p> $ { this.props.price }</p>
+        <p>
+          Total: ${ this.props.price * this.state.cantidad } 
+        </p>
+      </div>
+      )
+    }
+  }
+
+  export default TarjetaFruta
+

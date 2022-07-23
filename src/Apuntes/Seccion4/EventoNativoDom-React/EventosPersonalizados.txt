@@ -1,0 +1,64 @@
+import React, { Component } from "react";
+import './global.css';
+
+class Hijo extends Component {
+
+  manejadorClick = () => {
+    this.props.onSaluda('Sandy en React 😅')
+  }
+
+  render () {
+    return (
+      <div className="box blue">
+        <h2>Hijo</h2>
+        <button 
+            onClick={this.manejadorClick}
+        >
+          Saluda
+        </button>
+      </div>
+    )
+  }
+}
+
+class App extends Component {
+  state = {
+    name: ''
+  }
+
+  manejador = (name) => {
+    this.setState({ name: name }) // aqui como la propiedad y el nombre de la propiedan son el mismo nombre, se puede dejar solo uno (name)
+  }
+
+
+  render () {
+    return (
+        <div className="box red"> 
+          <Hijo 
+            onSaluda={this.manejador} // la forma de llamae este evento en el hijo es a traves de las props ej (ver linea 10)
+          />
+          <h1>
+            Nombre: { this.state. name }
+          </h1>
+        </div>
+    )
+  }
+}
+
+export default App
+
+// Nota: la hoja de estilo que se inporta esta aparate.
+// los estilos fueron:
+.box {
+    padding: 1em;
+    box-sizing: border-box;
+    border-radius: 0.2em;
+}
+
+.red {
+    border: 1px solid red;
+}
+
+.blue {
+    border: 1px solid blue;
+}

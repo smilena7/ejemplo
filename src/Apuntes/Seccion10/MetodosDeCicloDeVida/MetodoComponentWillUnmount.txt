@@ -1,0 +1,103 @@
+import React, { Component } from "react";
+
+// NOTA: los metodos de ciclo de vida que veremos a continuacion son exclusivamente basado en clases
+
+class Timer extends Component {
+  state = {
+    time: 0,
+    isPlaying: true
+  }
+
+  tick = null // propiedad
+
+  componentDidMount () {
+    this.play()
+  }
+
+  componentWillUnmount () {
+    // ¿Que se puede hacer con este metodo?
+    // 1. Limpiar intervals
+    // 2. Limpiar event liteners
+    // 3. Ejecutar algun metodo para que este limpie algo dentro del padre, por eje: (siguiente linea)
+    this.props.onDestoy() // ver lineas 91, 87, 75 y 68 (codigos asociados a este)
+    clearInterval(this.tick)
+  }
+
+  play = () => {
+    this.setState({ isPlaying: true })
+
+    this.tick = setInterval(() => {
+      this.setState(state => ({
+        time: state.time + 1
+      }))
+    }, 1000)
+  }
+
+  pause = () => {
+    this.setState({ isPlaying: false })
+    clearInterval(this.tick)
+  }
+
+
+  toggle = () => {
+    if (this.state.isPlaying) { // se lee asi: en caso de que la propiedad isPlaying sea verdadera, que se ejecute el metodo pause()
+      this.pause()
+    } else { // y en caso contrarios, que se ejecute el metodo play()
+      this.play()
+    }
+  }
+
+
+  render () {
+    const { time, isPlaying } = this.state
+
+    return ( // lo que esta dentro del botton se lee asi: en caso de que este isPlaying, dentro del boton que aparezca pause, y en caso contrario que aparezca play
+      <div>
+        <h1>{ time }</h1>
+        <button onClick={this.toggle}>
+          { isPlaying ? 'pause' : 'play' } 
+        </button>
+      </div>
+    )
+  }
+}
+
+class App extends Component {
+  state = {
+    mostrar: true,
+    message: ''
+  }
+
+  desmontar = () => {
+    this.setState({ mostrar: false })
+  }
+
+  handleDestoy = () => {
+    this.setState({
+      message: 'El componente contador, fue destruido'
+    })
+  }
+
+  render () {
+    return (
+      <div>
+        <h1>
+          Metodos de cliclo de vida: Metodo componentWillUnmount
+        </h1>
+        <h2>{this.state.message}</h2>
+        <button onClick={this.desmontar}>
+          Desmontar
+        </button>
+        { this.state.mostrar && <Timer onDestoy={this.handleDestoy} /> } 
+      </div>
+    )
+  }
+}
+
+export default App
+
+// NOTA: El metodo componentWillUnmount, es el unico metodo que se ejecuta en la etapa de desmontaje del componente
+// En este metodo se puede realizar diferentes operaciones o doferentes limpiezas antes de que el componente sea destruido
+// El metodo se ejecuta justamente antes de que el componente se vaya a desmontar
+
+

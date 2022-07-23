@@ -1,0 +1,44 @@
+import React, { Component } from "react";
+
+const Title = (props) => { // props para pasar uiColor
+  const styles = {
+    padding: '0.3em',
+    color: '#fff',
+    background: props.uiColor, // utilizando props para pasar informacion
+    borderRadius: '0.3em',
+    textAlign: 'center',
+    fontSize: '50px'
+  }
+
+  console.log(props.children)
+
+  return (
+    <h1 style={styles}>
+      { props.children }  
+    </h1>
+  )
+}
+
+class App extends Component {
+  state = {
+    uiColor: 'purple'
+  }
+
+  render () {
+    return (
+      <div> 
+        <Title 
+          uiColor={this.state.uiColor}
+        >
+          Super <em>PRO</em>
+        </Title>
+      </div>
+    )
+  }
+  
+  
+}
+
+export default App
+
+// Nota: Este es el componente padre (principal)

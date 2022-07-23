@@ -1,0 +1,75 @@
+import React, { Component } from "react";
+
+
+
+class App extends Component {
+  state = {
+    movie: {},
+    isLoading: false
+  }
+
+  handleSubmit = async (event) => {
+    event.preventDefault()
+
+    this.setState({ isLoading: true })
+
+    const title = event.target[0].value
+    const url = 'http://www.omdbapi.com/?i=tt3896198&apikey=ace35cf6'
+    
+    const res = await fetch(url + '&t=' + title)  // en async/await debemos guardar la respuesta directamente en una constante y anteponer la palabra await en el momento en el que nos regresa una promesa, asi como se hizo en esta linea
+    const movie = await  res.json() // ya que con el metodo fetch no nos llega la respuesta convertida a json, por ello lo debemos parsear
+     
+
+    this.setState({ // actualizamos el estado de esta forma:
+      movie,
+      isLoading: false
+    })
+  }
+
+
+  render () {
+    const { movie, isLoading } = this.state // Destructuramos el objeto vacio movie para no tener que llamar siempre this.state en las etiquetas de App que s emostraran en pantalla
+    return ( 
+      <div>
+        <h1>
+          Ejemplo HTTP Buscador de Peliculas con Async/Await y Fetch
+        </h1>
+        <form onSubmit={this.handleSubmit}>
+          <input 
+            type="text"
+            placeholder='Nombre de Película'
+          />
+          <button>
+            Buscar 
+          </button>
+        </form>
+        { isLoading && (
+          <h2>Cargando</h2>
+        ) }
+        { movie.Title && !isLoading && ( // Esto se lee: si ya se ha definido algo dentro de la propiedad titulo, entonces isloading es falso y que se cumpla esta condicion:
+          <div>
+          <h2>{ movie.Title }</h2>
+          <p>
+            { movie.Plot }
+          </p>
+          <img 
+            src={ movie.Poster } 
+            alt='Poster' 
+            style={{
+              width: '150px'
+            }}
+          />
+        </div>
+        ) }
+      </div>
+    )
+  }
+}
+
+export default App
+
+
+// NOTA: En el h2, se pone Title con T mayuscula ya que viene directamente de la API, y esta nos arroja cada una de las propiedades de mayuscula, y asi las demas (Plot, Poster)
+
+// NOTA2: Para el caso de async/await, lo primero que debemos hacer es  estar dentro d eun bloque que permita la sintasis de async/await
+// por ejemplo dentro de una funcion (como el caso del manejador de evento handleSubmit)

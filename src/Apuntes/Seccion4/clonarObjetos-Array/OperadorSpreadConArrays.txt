@@ -1,0 +1,21 @@
+// OPERADOR SPREAD {...} con arrays o listas [...]
+
+const frutasVerdes = [
+    'Kiwi',
+    'uva',
+    'limon'
+]
+
+const frutasRojas = [
+    'manzana',
+    'fresa',
+    'sandia'
+]
+
+const frutas = [
+    ...frutasVerdes,
+    'pera', // si quisiermos agregar una fruta de ultima posicion en la lista verde, lo hacemos en esta posicion (asi en esta logica en las posiciones que querramos)
+    ...frutasRojas
+]
+
+console.log(frutas)

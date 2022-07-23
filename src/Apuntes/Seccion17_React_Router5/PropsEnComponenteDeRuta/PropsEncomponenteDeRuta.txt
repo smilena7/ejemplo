@@ -1,0 +1,67 @@
+import React from 'react'
+import { BrowserRouter, Route, Link, NavLink } from 'react-router-dom'
+import './App.css'
+
+const Hola = (props) => ( // no se hace return porque se tiene un solo tipo de infromacion dentro de la funcion (el h1)
+  <h1>Hola</h1>
+)
+
+const Productos = (props) => {
+  debugger
+  return ( // se hace return porque se tiene dos tipo de infromacion dentro de la funcion (debugger y el h1)
+    <h1>Productos</h1>
+  )
+}
+
+const Home = (props) => {
+  console.log(props)
+  return ( // se hace return porque se tiene dos tipo de infromacion dentro de la funcion (console y el h1)
+    <h1>Home</h1>
+  )
+}
+
+const navStyles = {
+  display: 'flex',
+  justifyContent: 'space-around'
+}
+
+const NavActive = {
+  color: 'orangered'
+}
+
+const Navegation = () => (
+  <nav style={navStyles}>
+    <NavLink
+      to='/'
+      exact
+      activeStyle={NavActive}
+    >
+      Home
+    </NavLink>
+    <NavLink
+      to='/hola'
+      activeClassName='navActive'
+    >
+      Hola
+    </NavLink>
+    <NavLink
+      to='/productos'
+      activeStyle={NavActive}
+    >
+      Productos
+    </NavLink>
+  </nav>
+)
+
+const App = () => {
+  return (
+    <BrowserRouter>
+      <Navegation />
+      <Route path='/' exact render={Home} />
+      <Route path='/hola' render={Hola} />
+      <Route path='/productos/:id?' render={Productos}/>
+    </BrowserRouter>
+  )
+}
+
+export default App

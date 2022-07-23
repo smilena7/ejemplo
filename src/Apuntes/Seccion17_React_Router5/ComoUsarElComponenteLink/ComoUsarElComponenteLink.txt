@@ -1,0 +1,71 @@
+import React from 'react'
+import { BrowserRouter, Route, Link } from 'react-router-dom'
+
+const Hola = () => (
+  <h1>Hola</h1>
+)
+
+const Productos = () => (
+  <h1>Productos</h1>
+)
+
+const Home = () => (
+  <h1>Home</h1>
+)
+
+const navStyles = {
+  display: 'flex',
+  justifyContent: 'space-around'
+}
+
+const Navegation = () => (
+  <nav style={navStyles}>
+    <Link to='/'>Home </Link>
+    <Link to='/hola'>Hola </Link>
+    <Link to='/productos' replace>Productos </Link>
+  </nav>
+)
+
+const App = () => {
+  return (
+    <BrowserRouter>
+      <Navegation />
+      <Route path='/' exact render={Home} /> 
+      <Route path='/hola/' render={Hola} />
+      <Route path='/productos'render={Productos} />
+    </BrowserRouter>
+  )
+}
+
+export default App
+
+// Componente link
+// Importante recordar importar el componente Link 
+// En un componente propio de React, el cual nos sirve para poder navegar entre rutas pero sin que se recargue la pagina.
+// Este compoennte link en lugar de recibir una prop href (como lo hace la etiqueta a), recibe una prop llamada to
+
+// Con la prop replace, podemos reemplazar el ultima enretutado, es decir, si damos clicl en el navegador en el siguiente orden:
+// Home, luego Hola y luego Productos, y si damos click en la flecha de devolver que tiene el navegador por defecto, este nos devuelve a la ultima ruta navegada (en este caso Hola)
+// pero si hacemos uso de la prop replace en el enrutado de productos (linea 25), y damos click en el mismo anterior orden (Home, Hola, Productos),
+// este nos va a devolver a Home y no a Hola.
+
+// OTRA FORMA DE ENRUTAR ES A TRAVES DE OBJETOS, ASI:
+/* <Link to={{
+  pathname: '/', - esta es la rutadirectamente
+  search: '?ordenar=nombre', - esto es parametros de consulta, y se lee: ordenar por nombre
+  hash: '#hash-otro' - es un hashta ylo "-otro", es mas informacion
+  state: { - este es un objeto con la informacion de la arl
+    name: 'Sandy Dev'
+    age: 25
+  } - esta informacion nos van a llegar a traves de las props ver linea 67
+}}>Home </Link> */
+
+// asi, dentro de la urla podemos ver todos los parametros que les estamos pasando
+
+// Ejemplo:
+/* const Home = (props) => {
+  console.log(props) - en la consola podemos ver las props que nos esta llegando (donde veremos en el objeto location, vermeos la informacion al momento de usar el componente link -linea 55)
+  return (
+    <h1>Home</h1>
+  )
+} */

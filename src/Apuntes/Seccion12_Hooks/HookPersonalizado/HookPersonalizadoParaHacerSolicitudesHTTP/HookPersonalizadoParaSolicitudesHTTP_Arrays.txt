@@ -1,0 +1,77 @@
+import React, { useState, useEffect } from "react"; 
+
+const Header = () => {
+  const styles = {
+    background: 'linear-gradient(20deg, #6813cb, #2575fc)',
+    textAlign: 'center',
+    borderRadius: '0.2em',
+    color: '#FFF',
+    padding: '0.3em',
+    margin: '0.3em',
+    fontSize: '14px'
+  }
+
+  return (
+    <header style={styles}>
+      <h1>
+        Hook personalizado para hacer solicitudes HTTP
+        <span
+          role='img'
+          aria-label='hook emoji'
+        >
+          ⚓
+        </span> 
+      </h1>
+    </header>
+  )
+}
+
+// Hook personalizado
+const useFetch = (url) => {
+  const [ data, setData ] = useState([])
+  const [ isFetching, setFetching ] = useState(true) // ya que de entrada debemos mostrarle al usuario que se esta cargando la solicitud
+
+  useEffect(() => {
+    fetch(url)
+      .then(res => res.json())
+      .then(data => {
+        setData(data)
+        setFetching(false) // ya que en este punto la solicitud ya se ha completado
+      })
+  }, [ url ])
+
+  return [ // aqui podriamos retornar un objeto, pero mejor se recomienda pasarlo a traves de un array para que desde el componente, donde lo consumamos, podamos renombrar estos valores de propiedades (data, isFetching) como nosotro lo queramos
+    data,
+    isFetching
+  ]
+
+} // hasta aqui ya hemos terminado el hook personalizado, ahora debemos pasarlo al compoennte principal (ver linea 52):
+
+const App = () => {  
+  const [ users, isLoading ] = useFetch('https://jsonplaceholder.typicode.com/users') // aqui usamos el hook personalizado
+
+  return (
+    <div>
+      <Header />
+      { isLoading && <h1>Cargando...</h1> } 
+      <ul>
+        {users.map(user => (
+          <li key={user.id}>
+            { user.name }
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+
+
+export default App
+
+
+// NOTA: En la linea 52, el array que recibimos en realidad es el return del array que estamos haciendo en la linea 44, y como retornamos un arry, tenemos la facilidad de renombrar las propiedades por ello
+// en lugar de aparecer: const [ data, isFetching ] = userFetch('.....'), 
+// podemos poner el nombre que queramos como: const [ users, isLoading ] = userFetch('...'),
+// NOTA2: El link lo pasamos aqui ene sta linea 52, ya que de esta manera podemos reutilizar el compinente de solicitud de api en cualquier componente que consideremos pertinente, y solo quedaria actualizar o cambiar el url que corresponda.
+
+// NOTA3: La comprobacion que hay en la linea 57 se lee asi: En caso de que aun se en cuentre en proceso la solicitud (que sea true), entonces (&&) que nos agrege un h1 que diga Cargando...

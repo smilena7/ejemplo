@@ -1,0 +1,172 @@
+import React, { Component, createRef } from "react";
+
+// NOTA: los metodos de ciclo de vida que veremos a continuacion son exclusivamente basado en clases
+
+
+class App extends Component { 
+  title = React.createRef()
+
+  state = {
+    text: 'Hola'
+  }
+
+  getSnapshotBeforeUpdate (prevProps, prevState) { // dentro de este metodo tenemos que retornar un valor (cualquier cosa, siempre se debe retornar algo, aunque sea null), y este valor lo vamos a recibir por el metodo de componentDidUpDate
+    console.log(this.title.current.innerText)
+    return 'Hola desde getSnapshotBeforeUpDate'
+  }
+
+  componentDidUpdate (prevProps, prevState, snapshot) { // en este metodo recibimos el valor del metodo anterios, con los dos parametros propios del metodo (prevProps y prevState), mas un parametro mas que seria el snapshot del metood anterior
+    console.log(this.title.current.innerText)
+    console.log(snapshot)
+  }
+
+  dispatch = () => {
+    this.setState({
+      text: 'Adios, Bye'
+    })
+  }
+
+  render () { 
+    return ( 
+      <div>
+        <h1>
+          Metodos de cliclo de vida: Metodo getSnapshotBeforeUpDate
+        </h1>
+        <h2
+          ref={this.title}
+        >
+          { this.state.text }
+        </h2>
+        <button onClick={this.dispatch}>
+          DISPATCH
+        </button>
+      </div>
+    )
+  }
+}
+
+export default App
+
+
+
+
+// EJERCICIOOOOOO CON getSnapshotBeforeUpDate
+
+import React, { Component, createRef } from "react";
+import faker from 'faker';
+
+// NOTA: los metodos de ciclo de vida que veremos a continuacion son exclusivamente basado en clases
+const chatStyle = {
+  width: 230,
+  height: 300,
+  border: '1px solid gray',
+  overflow: 'auto',
+  fontFamily: 'monospace'
+}
+
+const messageStyle = {
+  padding: '1em',
+  borderBottom: '1px solid #DDD'
+}
+
+const avatarStyle = {
+  width: 50,
+  height: 50,
+  borderRadius: '50%'
+}
+
+class Chat extends Component {
+  box = React.createRef()
+
+  getSnapshotBeforeUpdate () {
+    const box = this.box.current
+    if (box.scrollTop + box.offsetHeight >= box.scrollHeight) {
+      return true
+    }
+
+    return false
+  }
+
+  componentDidUpdate (prevProps, prevState, snapshot) {
+    const box = this.box.current
+
+    if (snapshot) {
+      box.scrollTop = box.scrollHeight
+    }
+
+  }
+
+  render () {
+    return (
+      <div 
+        style={chatStyle}
+        ref={this.box}
+      >
+        {this.props.list.map(item => (
+          <div
+            key={item.id}
+            style={messageStyle}
+          >
+            <p>{ item.message }</p>
+            <div>
+              { item.name }
+            </div>
+            <img
+              src={item.avatar}
+              alt='Avatar'
+              style={avatarStyle}
+            />
+          </div>
+        ))}
+      </div>
+    )
+  }
+}
+
+
+class App extends Component {
+  state = {
+    list: []
+  }
+
+  addMessage = () => { // dentro de este manejador se haran dos cosas:
+    // 1. Crear mensaje falso
+    const message = {
+      id: faker.random.uuid(),
+      name: faker.name.findName(),
+      avatar: faker.image.avatar(),
+      message: faker.hacker.phrase()
+    }
+
+    // 2. Agregarlo a la lista
+    this.setState(state => ({
+      list: [
+        ...state.list,
+        message
+      ]
+    }))
+  }
+
+  render () {
+    return (
+      <div>
+        <h1>
+          Metodos de cliclo de vida: Metodo getSnapshotBeforeUpDate
+        </h1>
+        <Chat
+          list={this.state.list}
+        />
+        <button onClick={this.addMessage}>
+          NEW MESSAGE
+        </button>
+      </div>
+    )
+  }
+}
+
+export default App
+
+
+
+
+

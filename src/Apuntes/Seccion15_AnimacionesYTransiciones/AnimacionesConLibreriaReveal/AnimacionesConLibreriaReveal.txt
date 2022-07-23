@@ -1,0 +1,44 @@
+import React from "react"
+import Zoom from 'react-reveal/Zoom'
+import { Bounce } from "react-reveal"
+import { Rotate } from "react-reveal"
+
+const App = () => {
+  
+  return (
+    <div>
+      <Rotate>
+        <section>
+          <h3>Ejemplo de Título</h3>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis quibusdam mollitia tempora animi, similique distinctio. Quidem error recusandae, et, repudiandae maxime nobis at aperiam neque earum vitae ex similique vero!</p>
+        </section>
+      </Rotate>
+      <section>
+        <h3>Ejemplo de Título</h3>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis quibusdam mollitia tempora animi, similique distinctio. Quidem error recusandae, et, repudiandae maxime nobis at aperiam neque earum vitae ex similique vero!</p>
+      </section>
+      <section>
+        <h3>Ejemplo de Título</h3>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis quibusdam mollitia tempora animi, similique distinctio. Quidem error recusandae, et, repudiandae maxime nobis at aperiam neque earum vitae ex similique vero!</p>
+      </section>
+      <Zoom>
+        <section>
+          <h3>Ejemplo de Título</h3>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis quibusdam mollitia tempora animi, similique distinctio. Quidem error recusandae, et, repudiandae maxime nobis at aperiam neque earum vitae ex similique vero!</p>
+        </section>
+      </Zoom>
+      <Bounce>
+        <section>
+          <h3>Ejemplo de Título</h3>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis quibusdam mollitia tempora animi, similique distinctio. Quidem error recusandae, et, repudiandae maxime nobis at aperiam neque earum vitae ex similique vero!</p>
+        </section>
+      </Bounce>
+    </div>
+  )
+}
+
+export default App
+
+// NOTA: Esta libreria de react para animaciones se puede conseguir buscando en google como: react-reveal npm
+// Lo PRIMERO que se debe hacer es INSTALAR la libreria con el siguiente comando: npm i react-reveal
+// Como SEGUNDO debemos importar las diferentes formas de animacion de nuestro interes, para ellos recomendable ir a la seccion Quick Start, alli dice las formas de importar y de usar las herramientas 

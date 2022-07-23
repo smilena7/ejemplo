@@ -1,0 +1,80 @@
+import React, { useState, useEffect } from "react"; 
+
+const Header = () => {
+  const styles = {
+    background: 'linear-gradient(20deg, #6813cb, #2575fc)',
+    textAlign: 'center',
+    borderRadius: '0.2em',
+    color: '#FFF',
+    padding: '0.3em',
+    margin: '0.3em',
+    fontSize: '14px'
+  }
+
+  return (
+    <header style={styles}>
+      <h1>
+        Introduccion a Hooks personalizados
+        <span
+          role='img'
+          aria-label='hook emoji'
+        >
+          ⚓
+        </span> 
+      </h1>
+    </header>
+  )
+}
+
+// Hook personazliado que se encarge de revisar el ancho y alto del navegador
+const useSizes = () => {
+  const [ width, setWidth ] = useState(window.innerWidth)
+  const [ height, setHeight ] = useState(window.innerHeight)
+
+  // Agregar listener
+  const handleResize = () => {
+    setWidth(window.innerWidth)
+    setHeight(window.innerHeight)
+  }
+
+  useEffect(() => { // IMPORTANTE: cada vez que agreguemos los linestener dentro del hook useEffect, debemos limpiarlo en cada ejecucion, esto de hace en el return:
+    window.addEventListener('resize', handleResize)
+
+    return () => {
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [])
+
+  return {
+    width,
+    height
+  }
+
+}
+
+const App = () => {  
+  const { height, width } = useSizes() // esta es una destructuracion de los datos: const data = useSizes()
+
+  return (
+    <div>
+      <Header />
+      <h1>
+        Width: { width }px Height: { height }px
+      </h1>
+    </div>
+  )
+}
+
+
+export default App
+
+
+// No esta demas aclarar que los hooks visto anteriormente (useState, useEffect, etc) son hooks nativos de React. Y tambien vimos algunos hooks para mejorar el rendimiento en ciertos contextos (useCallback y useMemo)
+// HOOKS PERZONALIZADOS:
+// Nos permite poder crear una logica concreta dentro de una funcion y que esta logica se pueda reutilizaqr en multiples componentes
+// REGLGAS PARA CREAR UN HOOK PERSONALIZADO:
+// 1. Usar la palabra use en el nombre del hook ej: useSizes
+// 2. El nombre debe ser lo mas declarativo posible con el nombre de la ccion o logica que va a contener
+// 3. Usualmente los hooks personalizados extienden de los hook nativos eje: si en el caso del hook personalizado useSizes se quiere agregar logica o estado dentro del hook, se debe importar el useState
+// 4. Lo ultimo que debemos ahcer para uqe la informaicon de ancho y de alto, se pueda consumir desde cualquier componente que le querramos agregar esta logica de negocio, 
+// tenemos que hacer un retorn dentro del hook (en este caso denroe del hook personalizado useSizes) (ver linea 49). NOTA: En ese retorno podemos utilizar lo que querramos, por ejemplo un objeto y adrento pasar las propiedades que querramos utilizar dentro de los componentes

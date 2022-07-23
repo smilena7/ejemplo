@@ -1,0 +1,90 @@
+import React, { Component, createRef } from "react";
+
+// NOTA: los metodos de ciclo de vida que veremos a continuacion son exclusivamente basado en clases
+
+class Contador extends Component {
+  state = {
+    num: this.props.num
+  }
+
+  static getDerivedStateFromProps (nextProps, prevState) { // este metood retorna un objeto y este objeto se mezcla con el componente que se tiene previamente (Contador)
+    // if (prevState.num !== nextProps.num) { // Se lee: si el estado previo de la propiedad num es diferente de las sigueinets props tambien d ela propiedad numero, entonces que retorne:
+    //   return { // Que retorne una propeidad num, peor esta se va a obtener de las nuevas props
+    //     num: nextProps.num
+    //   }
+    // } // PEROOOO, esta forma genera un problema y es que el button no se actualiza al dar click
+
+    if (prevState.num < nextProps.num) {
+      return {
+        num: nextProps.num
+      }
+    }
+  }
+
+  add = () => {
+    this.setState(state => ({
+      num: state.num + 1
+    }))
+  }
+
+  render () {
+    const { num } = this.state
+
+    return (
+      <div>
+        <hr/>
+        <button onClick={this.add}>
+          Clicks ( { num } )
+        </button>
+      </div>
+    )
+  }
+
+}
+
+class App extends Component {
+  state = {
+    numero: 0
+  }
+
+  handleChange = (e) => {
+    let numero = parseInt(e.target.value) // Con parseInt convertimos el valor que el usuarios nos da en el input (que es un string), en un numero
+
+    if (isNaN(numero)) { // el metodo isNaN, es para si en caso de que el usuario en lugar de numero, nos pone strings, que este pueda convertirlo en un cero por ejemplo
+      numero = 0
+    }
+
+    this.setState({ numero })
+
+    //console.log(numero)
+  }
+
+  render () {
+    const { numero } = this.state
+    return (
+      <div>
+        <h1>
+          Metodos de cliclo de vida: Metodo getDerivedStateFromProps
+        </h1>
+        <h2>{ numero }</h2>
+        <input type="text" onChange={this.handleChange}/>
+        <Contador
+          num={numero}
+        />
+      </div>
+    )
+  }
+}
+
+export default App
+
+
+// NOTA: El metodo getDerivedStateFromProps es el primero que se ejecuta cuando ocurre la etapa de actualizacion. Tambien es disparado en la etapa de montaje despues que se ejecuta el metodo constructor
+// Este metodo se utiliza para entregar informacion al estado que provengan desde las props
+// Este metodo es un metodo estatico, por ello, es necesario anteponerle la palabra static y despues declarar el metodo
+// El motivo de que sea estatico es que el mismo equipo que ha desarrollado React lo hizo asi a proposito para evitar inconvenientes o efecto secudarios dentro del componente o resultados no deseados
+// Por ello dentro de este metodo no se puede acceder al contexto del componente como por ejemplo: this.state o this.props o this.setState
+// Este metodo recibe dos parametros: las props siguientes y el estado previo (nextProps, prevState)
+
+
+

@@ -1,0 +1,70 @@
+import React, { Component } from "react";
+
+// NOTA: los metodos de ciclo de vida que veremos a continuacion son exclusivamente basado en clases
+
+const lista = (
+  <ul>
+    <li>Fresa</li>
+    <li>Sandia</li>
+    <li>Mango</li>
+    <li>Melon</li>
+  </ul>
+)
+
+class App extends Component { 
+  render () { // 
+    return ( 
+      <div>
+        <h1>
+          Metodos de cliclo de vida: Metodo render
+        </h1>
+        { lista }
+      </div>
+    )
+  }
+}
+
+export default App
+
+
+// NOTAS: metodo render
+// 1. Render es el unico necesario o requerido para que el componente funcione
+// 2. Dentro de este metodo vamos a retornar nuestro marcado (elementos de HTML y componentes que se vayan creando) que va a ser inyecto en la aplicacion cuando utilicemos el componente
+// 3. Dentro del metodo render se pueden hacer condicionales
+// 4. Tambien se puede retornar funciones antes de declarar render eje: 
+
+/* class App extends Component { 
+
+  getLista = () => {
+    <ul>
+      <li>Fresa</li>
+      <li>Sandia</li>
+      <li>Mango</li>
+      <li>Melon</li>
+    </ul>
+  } 
+
+  render () { 
+    return ( 
+      <div>
+        <h1>
+          Metodos de cliclo de vida: Metodo render
+        </h1>
+        { this.getLista() }
+      </div>
+    )
+  }
+} */
+// 5. Ademas, no es necesario que la funcion este dentro del componente, tambien se puede declarar antes de la funcion (almacnandola en una constante). NOTA: asì se puede llamar directamente en el marcado la funcion sin necesidad de this
+// 6. Dentro del metodo render se puede acceder al estado y hacia las props, PERO, no es recomendable aqui adentro acceder a la actualizacion del estado (this.setState() o this.forceUpdate()), ya que se puede entrar en un bucle infinito
+// 7. Ademas de retonar marcado dentro del render, tambien podemos retornar array, listas con elementos (especificando la prop key) utilizando fragmen. Tambien es posible retornar strings, y/o null (bien sea en condicionales ver ejemplo:)
+/* class APP extends Component {
+  render () {
+    if (true) {
+      return null
+    }
+    return (
+      <h1>Heeyyy!</h1>
+    )
+  }
+} */

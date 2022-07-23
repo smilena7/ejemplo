@@ -1,0 +1,37 @@
+
+
+const user1 = {
+    name: 'Camila Cabello',
+    username: 'camica',
+    country: 'Colombia',
+    social: {
+        facebook: 'https://fb...',
+        twitter: 'https//tw...'
+    }
+}
+
+const saluda = (user) => {
+    const { name, country } = user // aqui lo que decimos es que se extraiga del objeto estos valores (name, country y los que se quiera)
+    // para extraer social (que es un objeto dentro de otro objeto) se haria asi:
+    // const { name, social } = user -----> tambien se pueden usar las palabras reservadas let o var para valores variables y modificarlos despues
+    // const { twitter } = social
+    // OTRA FORMA ES ANIDANDO: const { name, social: { twitter } } = user 
+    // Y solo faltaria ponerlo en la concatenacion
+    // NOTA: cuando se hace una destructuracion anidada, por ejemplo con social, no se obtienen los valores del objeto (social), sino solo a los valores que extraigamos o expecifiquemos (en este caso twiter unicamentes)
+    // NOTA2: Tambien es posible reenombrar el nombre de las constantes o variables dentro de la misma declaracion: const { username: Sofia, 'Sofia', country }
+
+    console.log(`
+        Hola soy ${name} de ${country}
+    `)
+
+    // NOTA3: Dentro de los parametros de una funcion ej (user), tambien es perfectamente valido hacer destruturacion ej:
+    // const saluda = ({ name, country }) => {
+    //    console.log(
+    //    `Hola soy ${name} de ${country}`
+    //   )
+    // }
+}
+
+saluda(user1)
+
+// NOTA: importar este file (destructuracion.js) en el file prinicpal index.js

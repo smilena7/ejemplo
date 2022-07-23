@@ -1,0 +1,55 @@
+import React from "react";
+import Hijo from "./Hijo.text";
+
+
+const Padre = () => {
+
+  /*   // Function Arrays
+    const cremaPelos = [
+        {
+            name: 'AfroLove',
+            price: '54.700'
+        },
+        {
+            name: 'Skala',
+            price: '29.900'
+        }
+    ]
+
+    // Return Arrays
+  return (
+    <div>
+        <Hijo dataArray={cremaPelos}/>
+    </div>
+  ) */
+
+  // Function Objetos
+  const tiposPelos = {
+    tipo1: 'afros',
+    tipo2: 'rizados',
+    tipo3: 'ondulados'
+}
+
+// Return Objetos
+return (
+    <div>
+        <Hijo {...tiposPelos} dataObject={tiposPelos}/>
+    </div>
+  )
+}
+
+
+export default Padre
+
+
+// NOTA: En el index.js debemos poner: 
+// const App = () => (
+//  <div>
+//  <Padre />
+// </div>
+//)
+
+// NOTA2:
+// Importar la carpeta donde se encuentre el componente Padre
+
+

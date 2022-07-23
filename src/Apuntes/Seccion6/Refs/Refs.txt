@@ -1,0 +1,61 @@
+import React, { Component } from "react";
+
+// Las refs nos ayudan a tener las referencias d eun componente o elemento en el DOM real
+
+
+class Entrada extends Component {
+  constructor () {
+    super ()
+
+    this.entrada = React.createRef() // entrada = nombre de la refs
+  }
+
+  // Otra forma de hacerlo sin el metodo constructor:
+  // se saca el this.entrada y se borra el metodo constructor quedando asi:
+  // entrada = React.createRef()
+
+  componentDidMount () { // es un metodo de ciclo de vida, el cual se dispara automaticamente en el mometno en que el componente es creado y montado
+    this.focus()
+  }
+
+  focus = () => {
+    this.entrada.current.focus() // esto sale de la consola y se puede verificar poniendo este de esto conlose.log(this.entrada)
+  }
+  blur = () => {
+    this.entrada.current.blur()
+  }
+
+  render () {
+    return (
+      <div>
+        <input type="text" ref={this.entrada} />
+        <button 
+          onClick={this.focus}
+        >
+          Focus
+        </button>
+        <button
+          onClick={this.blur}
+        >
+          Blur
+        </button>
+      </div>
+    )
+  }
+}
+
+class App extends Component {
+  render () {
+    return (
+      <div> 
+        <h1>React refs</h1>
+        <Entrada />
+      </div>
+    )
+  }
+  
+  
+}
+
+export default App
+

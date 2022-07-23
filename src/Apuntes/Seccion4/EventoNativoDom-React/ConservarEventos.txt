@@ -1,0 +1,46 @@
+import React, { Component } from "react";
+
+class PersistenciaEventos extends Component {
+  state = {
+    color: 'blue'
+  }
+
+
+  handlerChange = (event) => {
+    const color = event.target.value // Esto para persistir los eventos (elementos por ejemplo cuando se pone el color en el input)
+    this.setState (staet => ({
+      color
+    }))
+  }
+
+  render () {
+    return (
+      <div>
+        <input 
+          type="text"
+          onChange={this.handlerChange} // este es un esuchador de evento que se activa al presionar cualquier tecla en el input 
+        />
+        <h1 
+          style={{
+            color: this.state.color
+          }}
+        >
+          { this.state.color }
+        </h1>
+      </div>
+    )
+  }
+}
+
+
+const App = () => {
+  return (
+      <div> 
+        <PersistenciaEventos />
+      </div>
+  )
+
+}
+
+export default App
+

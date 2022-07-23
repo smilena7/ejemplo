@@ -1,0 +1,93 @@
+import React, { Component } from "react";
+
+// NOTA: los metodos de ciclo de vida que veremos a continuacion son exclusivamente basado en clases
+
+class UserDetails extends Component {
+  state = {
+    user: {},
+    isFetching: false // PASOS PARA PONER CARGANDO EN LAS PANTALLAS. 1. Inicializar el estado
+  }
+
+  componentDidMount () {
+    this.fetchData()
+  }
+
+  componentDidUpdate (prevProps, prevState) {
+    //console.log('componenrDidUpDate', prevProps, this.props) // esto es para saber las props previas (id que estan antes de dar click en el boton aumentar), y las actuales (las que se actualizan al dar click al boton aumentar)
+    if (prevProps.userId !== this.props.userId) {
+      //alert('Cambio a ' + this.props.userId)
+      this.fetchData()
+    }
+  }
+
+  fetchData = () => {
+    this.setState({
+      isFetching: true // 2. Antes de hacer el llamado a la api y demas, se pone en true para que el usuario sepa que esta cargando al dar click en el boton
+    })
+
+    const URL = 'https://jsonplaceholder.typicode.com/users/' + this.props.userId // userId es el nombre de la prop
+    fetch(URL)
+      .then(res => res.json())
+      .then(user => this.setState({ 
+        user,
+        isFetching: false // 3. Una vez se tiene la informacion de la api, se pone en false para que no aparezca mas el cargando
+      }))
+  }
+
+  render () {
+    return (
+      <div>
+        <h2>User Details</h2>
+        { this.state.isFetching // 4. Aqui se hace una condicional para mostrar en pantalla (se lee asi, en caso de que se esta haciendo la solicitud que se renderice ?, de lo contrario que renderice lo otro :)
+          ? <h1>Cargando...</h1>
+          : (
+            <pre> 
+              { JSON.stringify(this.state.user, null, 4) } 
+            </pre>
+          ) 
+        }
+      </div>
+    )
+  }
+}
+
+class App extends Component { 
+  state = {
+    id: 1
+  }
+
+  aumentar = () => {
+    this.setState(state => ({
+      id: state.id + 1 // este state.id viene del estado inicializado en est componente App
+    }))
+  }
+
+  render () { 
+    const { id } = this.state
+    return ( 
+      <div>
+        <h1>
+          Metodos de cliclo de vida: Metodo componentDidUpDate
+        </h1>
+        <h2>ID: { id }</h2>
+        <button onClick={this.aumentar}>
+          Aumentar
+        </button>
+        <UserDetails 
+          userId={id} // este va a ser el id del usuario que vamos a obtener la informacion
+        />
+      </div>
+    )
+  }
+}
+
+export default App
+
+
+// NOTA: como no se puede renderizar un objeto dentro de JSX (en el caso de la linea 22), lo que se debe hacer es
+// utilizar JSON.stringify, el cual tranforma el objteo JSON en un string
+// despues se le pasa el objeto del usuario(this.state.user), despues se le pasa un null y depsues que tenga 4 espacio de identacion
+
+// NOTA2: A diferencia del componentDidMount(que solo de actualiza una vez en la etapa de montaje, es decir, una vez de hace la peticion a la API, esto no vuelve a actualizar la informacion), el componentDidUpDate,
+// si se actualiza
+// NOTA3: A traves de este metodo (componentDidUpDate), por medio de parametros se reciben las props previas y estado previo, asi: componentDidUpDate (prevProps, prevState) {}

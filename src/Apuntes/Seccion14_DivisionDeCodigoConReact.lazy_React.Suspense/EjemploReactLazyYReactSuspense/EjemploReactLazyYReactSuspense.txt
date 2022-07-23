@@ -1,0 +1,99 @@
+import React, { useState, lazy, Suspense  } from "react"
+import { MoonLoader } from "react-spinners"
+
+//import Image from './componentes/Image/Image' // Importacion sincrona
+
+// Code Spliting - Importacion dinamica
+const Image = lazy(() =>import('./componentes/Image/Image')) // improtacion asincrona
+
+const App = () => {
+  const [ show, setShow ] = useState(false)
+
+  const toggle = () => setShow(!show)
+
+  const styles = {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column'
+  }
+
+  return(
+    <div style={styles}>
+      <button onClick={toggle}> 
+        { show ? 'Ocultar' : 'Mostrar' } 
+      </button>
+      { show && (
+        <Suspense fallback={<MoonLoader color='orangered'/>}>
+          <Image /> 
+        </Suspense>
+      )}
+    </div>
+  )
+}
+
+export default App
+
+// CONDICIONAL TERNEARIO: El condicional terneario que hay dentro de button se lee asi: en caso de que la propiedad show sea true, entonces me va a mostrar el texto Ocultar y en caso contrario, me va a mostrar el texto Mostrar
+
+// CONDICIONAL CON AND: Si la propiedad show es true, se va a montar el componente Image, y si es flase, simplmenete se va a ignorar dicha expresion
+
+// IMPORTACION ASINCRONA
+// const Image = import('./componentes/Image/Image') // Si hacemos la importacion de esta manera, no nos va a funcionar
+// es aqui donde entra el metodo React.lazy y seria asi:
+// 1. Dentro dle metodo recibimos una funcion, y esta funcion nos tiene que retornar la importacion de esta forma:
+// const Image = React.lazy(() =>import('./componentes/Image/Image'))
+// 2. Tambien se pude exportar por destructuracion de esta forma
+// import React, { lazy } from 'react'
+// const Image = lazy(() => import('./componentes/Image/Image'))
+
+// AHORA: Con esta forma de importacion asincrona, lo que estamos haciendo es dividiendo nuestro codigo
+// Entonces, con la importacion del metodo lazy, tenemos la funcionalidad del Code Spliting
+// SIN EMBARGO NO ES SUFICIENTE, pues para que React sepa de que manera se debe integrar el codigo de este archivo como si fuera un componente
+// teneos que envolver el componente que hace la importacion con el metodo lazy (en este ejemplo Image), dentro de un componente Suspense (el cual tambien se puede importar con destructuracion)
+// Y DENTRO DEL MARCADO, se agrega el componente Suspense, y dentro de este se envuelve el componente Image
+
+// EL COMPONENTE SUSPENSE recibe una prop que se llama fallback, donde le podemos pasar un componente/marcado o un string, por ejemplo etiqteas <h1>Loanding...<h1/>
+
+
+// COMPONENTE IMAGE 
+
+import React from "react";
+import './Image.css'
+
+const Image = () => {
+
+    return (
+        <div className='show'>
+            <img 
+                src='https://images.pexels.com/photos/3048873/pexels-photo-3048873.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500' 
+                alt='Dark img' 
+                width='100%'
+            />
+        </div>
+    )
+}
+
+export default Image
+
+
+// ESTILOS CSS CON AMIMACIONES
+
+
+@keyframes show {
+    0% {
+        transform: scale(0.2);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.show {
+    animation: 1s show ease-out forwards;
+    width: 400px;
+    margin: 1em auto;
+}

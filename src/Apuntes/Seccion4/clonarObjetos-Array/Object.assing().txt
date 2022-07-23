@@ -1,0 +1,72 @@
+// FORMA ANTIGUA DE CLONAR (CON Object.assing())
+
+// Object.assing()
+// Nos ayuda a clonar un objeto o combinar las propieades de varios objetos diferentes
+
+// Ejemplo combiando las propiedades
+
+const perfil = {
+    nombre: 'Gerardo'
+}
+
+const region = {
+    pais: 'Mexico'
+}
+
+const social = {
+    twitter: '@gerfenix'
+}
+
+// El primer parametro es el objeto objetivo (un objeto vacio{})
+// Luego le pasamos los objetos de los que queremos clonar (perfil, regon, social)
+// Guardamos el Object.assing() en una constante
+// De esta manera podemos clonar las propiedades de los objetos (podemos verificar en consola con console.los(resultado);)
+const resultado = Object.assign(
+    {}, 
+    perfil, 
+    region,
+    social
+) 
+
+// NOTA: En Object.assigin() el orde de las propiedades importan, es decir
+// si pasamos los objetos en este mismo orden de perfil, region y social, y 
+// si por ejemplo el objeto social tuviese como propiedad nombre: 'Camila', este
+// seria el primero en aparecer en la consola (si llamamos desde console.log(resultado);) y no
+// el nombre del objeto perfil
+
+// NOTA2: Object.assing() no itera en profundidad, es decir, si tenemos un objeto
+// dentro de otro objeto, solo va a revisar las propiedades de primer nivel, o sea que no
+// itera las propiedades del objeto interno
+// Para solucionar esto:
+
+const fruta = {
+    nombre: 'Pera',
+    costo: {
+        precio: '1800'
+    }
+}
+
+const lugar = {
+    origen: 'Medellin',
+    costo: {
+        envio: '50000'
+    }
+}
+
+const medio = {
+    terrestre: 'servientrega'
+}
+
+const resultado2 = Object.assign(
+    {},
+    fruta,
+    lugar,
+    medio,
+    {
+        costo: Object.assign(
+            {},
+            fruta.costo,
+            lugar.costo
+        )
+    }
+)

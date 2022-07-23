@@ -1,0 +1,26 @@
+
+
+const user1 = {
+    name: 'Camila Cabello',
+    username: 'camica',
+    country: 'Colombia',
+    social: {
+        facebook: 'https://fb...',
+        twitter: 'https//tw...'
+    }
+}
+
+const saluda = (user) => {
+    const { name, country } = user 
+
+    const orden = [ 'pizza', 'te verde', 'pay', 1234, false, 'otro' ]
+    const [ comida, bebida, postre, ...restantes ] = orden
+
+    console.log(`
+    Hola soy ${name} y me gusta la ${comida}
+`)
+}
+
+saluda(user1)
+
+// NOTA: importar este file (destructuracion.js) en el file prinicpal index.js

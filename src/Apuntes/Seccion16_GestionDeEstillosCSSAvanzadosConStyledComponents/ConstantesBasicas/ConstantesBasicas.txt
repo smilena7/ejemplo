@@ -1,0 +1,38 @@
+import React from "react"
+import styled from "styled-components"
+import { colorPrincipal } from "./colors"
+
+const Header = styled.header` // componente estilizado de styled-components
+  background: ${colorPrincipal};
+  text-align: center;
+  border-radius: 0.2em;
+  color: #FFF;
+  padding: 0.3em;
+  margin: 0.3em;
+  font-size: 14px;
+`
+
+const Subtitle = styled.h2` // componente estilizado de styled-components
+  color: ${colorPrincipal};
+`
+
+const App = () => {
+  return (
+    <div>
+        <Header>
+          <h1>
+            Styled Components
+          </h1>
+        </Header>
+        <Subtitle>
+          Ejemplo de título
+        </Subtitle>
+    </div>
+  )
+}
+
+export default App
+
+// Nota: Cuando se este desarrollando estilos para proyectos de produccion, seria buena practica tener un archivo especifico que se encarge de la paleta de colores
+// ej: crear un archivos colors.js, definimos las constantes con los colores y lo exportamos. Luego desde el componente principal se debe importar con destructuracion ya que no lo exportamos por defecto.
+// Nota2: Estas variables o constantes tambien pueden ser de cualquier valor (padding, margin, etc)

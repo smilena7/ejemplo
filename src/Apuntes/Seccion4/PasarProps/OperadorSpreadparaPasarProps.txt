@@ -1,0 +1,45 @@
+// Usando Operador Spread {...} para pasar props
+
+import React, { Component } from "react";
+import TarjetaFruta from './componentes/TarjetaFruta/TarjetaFruta'; // se puede comentar porque es de otro componente
+
+const Gato = (props) => (
+  <div>
+    <h1> Gato 🐈 </h1>
+    <pre>
+      { JSON.stringify(props, null, 4) } {/* Aqui deberiamos renderizar el objeto que llegan desde las props, pero como es valido renderizar objetos de JS en React, este se convierte en un string a traves de JSON */}
+    </pre>
+  </div>
+)
+
+
+class App extends Component { 
+  state = {
+    fuerza: 100,
+    vidasRestantes: 300
+  }
+
+
+  render () {
+    const otrosDatos = {
+      raza: 'tropical',
+      peleasNocturnas: 300
+    }
+
+    return (
+      <div>
+        {/* <TarjetaFruta name='Sandia' price={300} /> */} - esto es otro componente
+        <Gato 
+          name= 'Garfield'
+          age= '2 años'
+          { ...otrosDatos }
+          { ...this.state }
+        />
+      </div>
+    )
+  }
+}
+
+  export default App
+
+  // Nota: Este es el componente padre (principal)

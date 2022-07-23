@@ -1,0 +1,33 @@
+// FORMA ACTUAL DE CLONAR OBJETOS CON OPERADOR SPREAD
+
+// Spread operator u operador spread {...}
+const perfil = {
+    nombre: 'Gerardo',
+    info: {
+        direccion: 'la direccion...'
+    }
+}
+
+const region = {
+    pais: 'Mexico',
+    info: {
+        coordenadas: 'las coordenadas...'
+    }
+}
+
+const social = {
+    twitter: '@gerfenix',
+    nombre: 'Ninja Pro'
+}
+
+const resultado = {
+    ...region, // se usa el operado spread (...) y luego el objeto a clonar
+    ...perfil, // NOTA: al igual que en object.assing(), en operador spread, tambien importa el orden los factores
+    ...social, // Tampoco revisa o itera los objetos en profundad. Para evitar esto:
+    info: {
+        ...perfil.info,
+        ...region.info
+    }
+}
+
+console.log(resultado)

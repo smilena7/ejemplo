@@ -1,0 +1,78 @@
+import React, { useState, useEffect, useRef } from "react"; // Esto es importar con destructuracion
+
+const Header = () => {
+  const styles = {
+    background: 'linear-gradient(20deg, #6813cb, #2575fc)',
+    textAlign: 'center',
+    borderRadius: '0.2em',
+    color: '#FFF',
+    padding: '0.3em',
+    margin: '0.3em',
+    fontSize: '14px'
+  }
+
+  return (
+    <header style={styles}>
+      <h1>
+        Ejemplo practico de Hooks: useState(), useEffect() y useRef()
+        <span
+          role='img'
+          aria-label='hook emoji'
+        >
+          ⚓
+        </span> 
+      </h1>
+    </header>
+  )
+}
+
+const App = () => {
+  const [name, setName  ] = useState('')
+  const [ products, setProducts ] = useState([])
+  const entrada = useRef()
+
+  useEffect(() => {
+    // debaounce
+    setTimeout(() => {
+      if (name === entrada.current.value) {
+        // Solicitud HTTP
+        fetch('https://universidad-react-api-test.luxfenix.now.sh/products?name=' + name) // ?name es un query
+          .then(res => res.json())
+          .then(data => setProducts(data.products))
+      }
+    }, 600)
+  }, [ name ]) // para evitar el bucle infinito
+
+
+  const handleInput = (e) => {
+    setName(e.target.value)
+  }
+
+  return (
+    <div>
+      <Header />
+      <input 
+        type='text'
+        onChange={handleInput} 
+        ref={entrada}
+      />
+      <ul>
+        {products.map(product => (
+          <li key={product.id}>
+            { product.name }
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+
+
+export default App
+
+// Nota: Lo primero es importar los hooks que utilizaremos (en este caso useState, useEffect y useRef)
+
+// NOTA: DEBOUNCE Y METODO setTimeount: Con el animo de optimizar el tiempo y evitar malas expericnias a los usuarios a la hora de hacer busqueda en nuestro input
+// utilizaremos un efecto llamado debounce: este seria (explicado de modo breve) algo asi como detener el flujo de alguna operacion hasta que pasen determinados milisegundos
+// Por ejemplo, con esto se espera que cuando el usuario cambie el texto dentro del input, el sistema espere 600 milisegundos antes de que se realice una solicitud
+// De esta manera, no se hara una solicitud por cada texto o palabra que ponga en el input, no se realiza hasta que el usuario complete la palabra o palabras

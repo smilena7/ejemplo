@@ -1,0 +1,8 @@
+import { combineReducers } from 'redux' // con combineReducers, pasamos mas de un reducers al store (ver linea 45)
+import counter from './counter'
+import user from './user'
+
+export default combineReducers({
+    counter,
+    user
+})

@@ -1,0 +1,67 @@
+import React, { Component } from "react";
+
+
+class App extends Component {
+  state = {
+    users: [],
+    cargando: true // para dar informacion de que esta cargando la informacion
+  }
+  componentDidMount () { // metodo de ciclo de vida, el cual se ejecuta dentro de un componente de React inmediatamente cuando de ha creado el primer marcado o el primer renderizado ejemplo en este caso al renderizar el div con el h1 (titulo de la pagina) 
+    fetch('https://jsonplaceholder.typicode.com/users')
+      .then((res) => res.json())
+      .then(users => this.setState({ users, cargando: false })) // Con la propiedad cargando simulamos que la info esta cargando
+      .catch(error => {
+        // Manejo del error 
+      })
+  } 
+
+  render () {
+    if (this.state.cargando) {
+      return <h1>Cargando...</h1> // para simular que la info esta cargando
+    }
+    return (
+      <div>
+      <h1>
+        Haciendo una llamada a un API Rest con React (peticion HTTP con fetch)
+      </h1>
+      <h2>{ this.state.text }</h2>
+      <ul>
+        {this.state.users.map(user => (
+          <li key={user.id}>
+            { user.name }
+            <a href={`http://${user.website}`}> 
+              Website
+            </a>
+          </li>
+        ))}
+      </ul>
+      </div>
+    )
+  }
+}
+
+export default App
+
+
+// NOTA1: 
+// A fetch (ver linea ) se le pasa como primer parametro un string con la ruta o url a la cual vamos a hacer la solicitud
+
+// NOTA2:
+// El metodo fetch regresa una promesa, por lo tanto se debe utilizar el metodo then el cual recibe un arrow function
+
+// NOTA3:
+// Esa respuesta que llega se debe parser con el metodo .json asi: res.json()
+
+// NOTA4:
+// Este metodo (.json()) retorna una nueva promesa, y alli va a llegar la respuesta que en este caso es un array de usuarios (users)
+// Se puede verificar en la consola la respuesta que esta llegando con los usuarios (soncole.log(users))
+
+// NOTA5:
+// En este punto (donde iria el console.log) es donde se va a actualizar el estado utilizado en setState y pasando el valor (users)
+
+// NOTA6:
+// Luego, debemos, en nuestro marcado (etiqueta que renderiza el componente app (div)), renderizar la informacion de los usuarios
+// Para ello se debe hacer una iteracion del array de usuario con el metodo map
+
+// NOTA7:
+// Para que la website funciona, es necesario concatenar http:// con user.website

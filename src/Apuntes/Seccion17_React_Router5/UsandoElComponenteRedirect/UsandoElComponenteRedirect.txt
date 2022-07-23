@@ -1,0 +1,72 @@
+import React from 'react'
+import { BrowserRouter, Route, NavLink, Redirect } from 'react-router-dom'
+import './App.css'
+
+const Navegation = () => (
+  <nav>
+    <NavLink to='/' exact activeClassName='active'>Home</NavLink>
+    <NavLink to='/perfil' activeClassName='active'>Perfil</NavLink>
+    <NavLink to='/login' activeClassName='active'>Login</NavLink>
+  </nav>
+)
+
+const Home = () => (
+  <h1>Home</h1>
+)
+
+const isAuth = false
+
+const Perfil = () => {
+  return isAuth
+  ? <h2>Bienvenido a tu perfil</h2>
+  : <Redirect to={{ // redireccionamos a la ruta login
+    pathname: '/login',
+    state: {
+      message: 'Debes hacer login para acceder a tu perfil'
+    }
+  }} /> 
+}
+
+const Login = ({ location }) => {
+
+  if (location.state) { // se lee: en caso de que location tenga un estado, que me retorne:
+    return <h2>{ location.state.message }</h2>
+  }
+
+  return (
+    <h1>Login</h1>
+  )
+}
+
+
+const App = () => {
+  return (
+    <BrowserRouter>
+        <Navegation />
+        <Route path='/' exact render={Home} />
+        <Route path='/perfil' render={Perfil} />
+        <Route path='/login' render={Login} />
+    </BrowserRouter>
+  )
+}
+
+export default App
+
+
+// Ejemplo en caso de que se haga uso de redirect en la lidea 49: Se puede hacer uso de este flujo para poder diriir a un usuario de una ruta a otra
+// <Redirect from='/p' to='/perfil' /> 
+// De esta manera podemos de una manera corta hacer que en el navegador autor rellene o reconocrza que a poner p y dar enter, se redireccion ahcia la ruta perfil
+
+
+
+
+// HOJA DE STILO CSS:
+
+nav {
+    display: flex;
+    justify-content: space-around;
+}
+
+a.active {
+    color: #ff008d;
+}

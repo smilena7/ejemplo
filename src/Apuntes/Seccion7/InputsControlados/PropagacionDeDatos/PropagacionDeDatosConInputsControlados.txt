@@ -1,0 +1,95 @@
+import React, { Component } from "react";
+
+const Unicorn = () => ( // forma correcta de ingresar un emoji
+  <span role='img' arial-label='unicornio'>
+    🦄
+  </span>
+)
+
+class InputControlado extends Component {
+  state = {
+    text: '',
+    color: '#E8E8E8'
+  }
+
+  actualizar = (event) => {
+    const text = event.target.value
+    let color = 'green'
+      if (text.trim() === '') { // Se lee: si el texto es igual a un estring vacio, enonces color sera gris(el metodo trim() limpia los espacios vacios)
+        color = '#E8E8E8'
+      }
+
+      if (text.trim() !== '' && text.trim().length < 5) { // se lee: si es texto es diferente a un string vacio y el texto es menor de 5 caracteres, entonces color sera rojo
+        color = 'red'
+      }
+
+    this.setState({ text, color })
+
+    // Propagando datos al padre
+    this.props.onChange(this.props.name, text) 
+  }
+
+
+  render () {
+    const styles = {
+      border: `1px solid ${this.state.color}`,
+      padding: '0.3em 0.6em',
+      outline: 'none'
+    }
+
+    return (
+      <input 
+        type="text" 
+        value={this.state.text}
+        onChange={this.actualizar}
+        style={styles}
+        placeholder={this.props.placeholder}
+      />
+    )
+  }
+}
+
+
+class App extends Component {
+  state = {
+    name: '',
+    email: ''
+  }
+
+  actualizar = (name, text) => { // con esto se reciben los datos desde el componente input
+    this.setState({
+      [name]: text
+    }) 
+    // console.log(text) --> se imprime en consola los datos que ingresan los usuarios
+  }
+
+  render () {
+    return (
+      <div>
+        <h1>
+          Propagacion de datos con inputs controlados <Unicorn />
+        </h1>
+        <InputControlado 
+          onChange={this.actualizar}
+          placeholder='Nombre Completo'
+          name='name'
+        />
+         <InputControlado 
+          onChange={this.actualizar}
+          placeholder='Tu Email' 
+          name='email'
+          />
+          <h2>
+            Nombre: { this.state.name }
+          </h2>
+          <h2>
+            Email: { this.state.email }
+          </h2>
+      </div>
+    )
+  }
+}
+
+
+export default App
+

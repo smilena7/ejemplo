@@ -1,0 +1,43 @@
+
+@keyframes showUp {
+    0% {
+        background: black;
+        transform: scale(0.1) rotate(250deg); /* rotate es de totacion */
+    }
+
+    100% {
+        background: purple;
+        transform: scale(1) rotate(0deg); /* deg es de grado*/
+    }
+}
+
+.header {
+    background: black;
+    transform: scale(0);
+    position: absolute;
+    text-align: center;
+    border-radius: .4em;
+    color: #FFF;
+    padding: 0.5em;
+    margin: 0.5em;
+    font-size: 14px;
+    transition: all 800ms ease;
+}
+
+.header-active {
+    animation: 1500ms showUp ease-in-out;
+    animation-fill-mode: forwards; 
+}
+
+/* Con animation-fill-mode: forwads; hacemos que encuento finalice la, esta se quede con los valores que hemos declarado al final en el keyframes (100%) */
+
+.active-p {
+    background-color: rgb(70, 129, 238);
+    color: black(200, 156, 215);
+    border-radius: .4em;
+    font-size: 14px;
+    margin: 0.5em;
+    padding: 0.5em;
+    position: absolute;
+    text-align: center;
+}

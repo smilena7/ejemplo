@@ -1,0 +1,69 @@
+import React from 'react'
+import { BrowserRouter, Route } from 'react-router-dom'
+
+const Hola = () => (
+  <h1>Hola</h1>
+)
+
+const Productos = () => (
+  <h1>Productos</h1>
+)
+
+const Home = () => (
+  <h1>Home</h1>
+)
+
+const App = () => {
+  return (
+    <BrowserRouter>
+      <Route path='/' exact component={Home} /> 
+      <Route path='/hola/' render={Hola} />
+      <Route path='/productos'>
+        <Productos />
+      </Route> 
+    </BrowserRouter>
+  )
+}
+
+export default App
+
+
+// Formas de renderizar un componente dentro de uan ruta
+// 1. A traves de la prop component
+// Con esta forma de renderizar, lo que hace react internamente es crear un elemento cada vez que se renderice, pues si el ligar de pasar el home directamente en el componente component, 
+// le pasamos una funcion asi: component={() => (<h1>Home en linea</h1>)}, este siempre crearia una nueva funcion en cada renderizado
+
+// 2. A traves de la prop render
+// Con el metodo render no ocurre lo mismo que con el metodo componente (no crea un nuevo elemento o funcion con cada renderizado). Por ende, es mas recomendabe hacer uso de esta prop
+
+// 3. A traves de la prop children
+// Ver lineas de la 21 a la 23
+// Otra forma de hacerlo con la prop children es:
+/* <Route path='/productos'>
+  {() => ( // de esta menra, en el primer (), podemos pasar las props. Para conocer cuales son las props que estariamos pasado, podemos hacer un console.log(props), y en la consola del navegador podemos ver las props en mencion
+   <Productos />
+  )}
+</Route>   */
+
+// Otra cosa a tener en cuenta es que si hacemos uso de la prop children, este siempre se va a renderizar, asi se que por ejemplo pongamos en la ruta del navehador solo la ruta / o /hola.
+// esto lo podemos controlar haciendo el siguiente condicional:
+/* <Route path='/productos'>
+  {({ match }) => { // este match se saca del objeto que se pasan desde las prop en la consola (console.log(props))
+    if (!match) return null
+    return (
+      <Productos />
+   )
+  }}
+</Route>   */
+// Otra forma, personalizando mas el condicional:
+/*{({ match }) => { // este match se saca del objeto que se pasan desde las prop en la consola (console.log(props))
+    if (!match) return (
+      <div>
+        *** Wops! No coincide con /productos
+      </div>
+    )
+    return (
+      <Productos />
+    )
+}}
+</Route>   */

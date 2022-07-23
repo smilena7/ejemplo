@@ -1,0 +1,61 @@
+import React, { useState } from "react"
+
+const Header = ({ show }) => {
+
+  const activeStyles = { // Esto es para hacer mas leible el codigo, de esta manera, con este activeStyles, podemos agregar todos estilos que se van a aplocar cuando el componente se encuentre activo
+    background: '#3d1f9a',
+    transform: 'scale(1)', 
+    color: '#FFF'
+  }
+
+  let headerStyles = {
+    /* background: show ? '#3d1f9a' : 'black', // Esta es una forma de hacerlo. La otra forma es como se define en la linea 5 y en las lineas 13 y 14, y el condicional que esta en la linea 25
+    transform: show ? 'scale(1)' : 'scale(0)', */
+    background: 'black',
+    transform: 'scale(0)',
+    position: 'absolute',
+    textAlign: 'center',
+    borderRadius: '.4em',
+    color: 'orange',
+    padding: '0.5em',
+    margin: '0.5em',
+    fontSize: '14px',
+    transition: 'all 800ms ease'
+  }
+
+  if (show) { // se lee: en caso de que el componente se encuetre activo, estod estilos van a hacer igual a:
+    headerStyles = {
+      ...headerStyles,
+      ...activeStyles
+    }
+  }
+
+  return (
+    <header style={headerStyles}>
+      <h1>
+        Transiciones CSS en linea
+        <span role='img' aria-label='fire'>
+          🔥
+        </span>
+      </h1>
+    </header>
+  )
+}
+
+const App = () => {
+  const [ active, setActive ] = useState(false)
+
+  const toggle = () => setActive(!active)
+
+  return (
+    <div>
+      <button onClick={toggle}>
+        { active ? 'Desactivar' : 'Activar' }
+      </button>
+      <Header show={active} />
+    </div>
+  )
+}
+
+export default App
+

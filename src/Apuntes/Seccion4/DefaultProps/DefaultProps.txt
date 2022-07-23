@@ -1,0 +1,76 @@
+import React, { Component } from "react";
+import PropTypes from 'prop-types';
+
+
+// Props-type: donde se puede validar las props que se pasan a nuestros componentes. Asi como valir el TIPO de datos que esperamos
+
+const noop = () => {}
+
+class Profile extends Component {
+
+  /*  Si se quiere agregar defaultProps en componentes funcionales:
+     const Profile = () => {}
+     Comp.defaultProps = {}  */
+
+  static propTypes = { // Para hacer uso de las propTypes
+    name: PropTypes.string.isRequired,
+    bio: PropTypes.string,
+    email: PropTypes.string,
+    age: PropTypes.number
+  }
+
+  static defaultProps = {
+    name: 'Camila PRO', // Este funciona si en el momento de usar el componente Profile (linea 50), no se le pasa name, este se toma por defecto.
+
+    onHello: noop
+  }
+
+  saluda = () => {
+    this.props.onHello()
+  } 
+
+
+  render () {
+    const { name, bio, email } = this.props // destructuracion
+
+    return (
+      <div>
+        <h1>{ name }</h1>
+        <p>
+          { bio }
+        </p>
+        <a 
+          href={`milto:${email}`}
+        >
+          { email }
+        </a>
+        <button
+          onClick={this.saluda}
+        >
+          Saluda
+        </button>
+      </div>
+    )
+  }
+}
+
+
+class App extends Component {
+  render () {
+    return (
+      <div> 
+        <Profile 
+          //name='Manuela Ceballos' 
+          bio='Soy una Gestora Ambiental'
+          email='manu-ambiente@gmail.com'
+        />
+      </div>
+    )
+  }
+  
+  
+}
+
+export default App
+
+// Nota: Este es el componente padre (principal)

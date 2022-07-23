@@ -1,0 +1,68 @@
+import React, { useState } from "react"; // Esto es importar con destructuracion
+
+const Header = () => {
+  const styles = {
+    background: 'linear-gradient(20deg, #6813cb, #2575fc)',
+    textAlign: 'center',
+    borderRadius: '0.2em',
+    color: '#FFF',
+    padding: '0.3em',
+    margin: '0.3em',
+    fontSize: '14px'
+  }
+
+  return (
+    <header style={styles}>
+      <h1>
+        Hook useState con multiples estados (hooks)
+        <span
+          role='img'
+          aria-label='hook emoji'
+        >
+          ⚓
+        </span> 
+      </h1>
+    </header>
+  )
+}
+
+const App = () => {
+  const [ clicks, setClicks ] = useState(0)
+  const [ title, setTitle ] = useState('')
+  
+  const addClicks = () => {
+    setClicks(clicks + 1)
+  }
+
+  const handleInput = (e) => {
+    // const title = e.target.value // Debido a que unicamente lo utilizamos una vez, lo pasamos directamente dede el evento de esta forma:
+    setTitle(e.target.value)
+  }
+  
+  return (
+    <div>
+      <Header />
+      <input 
+        type="text"
+        value={title} 
+        onChange={handleInput} 
+      />
+      <button onClick={addClicks}>
+        Clicks ({ clicks })
+      </button>
+      <h3>{ title }</h3>
+    </div>
+  )
+}
+
+
+export default App
+
+
+// Con los componentes basado en clases, si se desea trabajar un boton y un input, es necesario 
+// mezclar las  nuevas propiedades que se tienen del estado y combinarlas con el estado que se tenia previamente
+// para ello es necesario el operado sprit (...) (esta se debe pasar en los setState)
+// Otra forma de mezclar el estado es creando nuestra propia funciona mezcladora del estado
+
+
+

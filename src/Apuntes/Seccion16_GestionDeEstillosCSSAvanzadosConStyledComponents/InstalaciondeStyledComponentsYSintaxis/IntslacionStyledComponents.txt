@@ -1,0 +1,37 @@
+import React from "react"
+import styled from "styled-components"
+
+const Header = styled.header`
+  background: linear-gradient(20deg, #db7093, #daa357);
+  text-align: center;
+  border-radius: 0.2em;
+  color: #FFF;
+  padding: 0.3em;
+  margin: 0.3em;
+  font-size: 14px;
+`
+
+const App = () => {
+  return (
+    <div>
+        <Header>
+          <h1>
+            Styled Components
+          </h1>
+        </Header>
+    </div>
+  )
+}
+
+export default App
+
+
+// 1. Intalar la libreria de styled componente con el siguiente comando: 
+// npm styled-components
+// 2. Importar styled:
+// import styled from 'styled-components'
+// 3. Todos los componentes de estilo de styled components seben estar guardado en una constante con la siguiente sintasis eje:
+// const Header = styled.header`` 
+// Nota: Dentro de las comillas invertidas van los codigos o estilos css
+// Nota2: Header es el nombre de la constante de styled
+// Nota3: El .header, por ejemplo, hace referencia a la propiedad de los nombres de cada una de las etiquetas (div, p, h1, section, etc) interesa aplicar a nuestro componente styled

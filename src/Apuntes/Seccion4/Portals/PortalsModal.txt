@@ -1,0 +1,81 @@
+import React, { Component } from "react";
+import ReactDOM from "react-dom"; // Ya que en la linea 6 estamos utilizando el paquete ReactDOM
+
+class PortalModal extends Component {
+  render () {
+
+    if (!this.props.visible) { // aqui se utiliza props para pasar los datos que se inicializaron en otro componente (App)
+      return null
+    }
+
+    const styles = {
+      width: '100%',
+      height: '100%',
+      position: 'absolute',
+      top: '0',
+      let: '0',
+      background: 'linear-gradient(to top right, #667eea, #764ba2)',
+      opacity: '0.95',
+      color: '#FFF'
+    }
+
+    return ReactDOM.createPortal(( // el createPortal recibe como primer parametro el marcado que queremos montar ej div y el h1
+      <div style={styles}> 
+        { this.props.children }
+      </div>
+    ), document.getElementById('modal-root')) // el segundo parametro recibe el puntero hacia donde lo vamos a montar
+  }
+}
+
+
+
+class App extends Component {
+  state = {
+    visible: false,
+    num: 0
+  }
+
+  componentDidMount () { // NOTA: este contador es infinito
+    setInterval(() => {
+      this.setState(state => ({
+        num: state.num + 1
+      }))
+    }, 1000)
+  }
+
+  mostrar = () => {
+    this.setState({ visible: true })
+  }
+
+  cerrar = () => {
+    this.setState({ visible: false })
+  }
+
+  render () {
+    return (
+      <div> 
+        <button
+          onClick={this.mostrar}
+        >
+          Mostrar
+        </button>
+        <PortalModal visible={ this.state.visible }>
+          <button
+            onClick={this.cerrar}
+          >
+            Cerrar
+          </button>
+          <h1>
+            Hola desde un PortalModal 😎 { this.state.num }
+          </h1>
+        </PortalModal>
+      </div>
+    )
+  }
+  
+  
+}
+
+export default App
+
+// Nota: Este es el componente padre (principal)

@@ -1,0 +1,54 @@
+import React from "react";
+import { createRoot } from 'react-dom/client';
+import ReactDOM from 'react-dom';
+
+
+// Creando un componente con Estado usando clases con iniciadores de propiedad
+class TarjetaFruta extends React.Component { // Componente hijo TrajetaFruta
+  // Desaparece el constructor y cambiamos tl this.state
+  state = { 
+    cantidad: 0
+  }
+
+  agregar = () => { // en lugar de metodos (agregar ()), usamos arrow function
+    this.setState({ 
+      cantidad: this.state.cantidad + 1 
+    }) 
+  }
+
+  quitar = () => this.setState({ 
+      cantidad: this.state.cantidad - 1 // segunda forma y funciona igual a la anterior
+    }) 
+
+  limpiar = () => this.setState({ 
+      cantidad: 0 
+    }) 
+  
+  render = () => { 
+    return (
+    <div>
+      <h3>{ this.props.name }</h3>
+      <div>Cantidad: { this.state.cantidad }</div>
+      <button onClick={this.agregar}> + </button> 
+      <button onClick={this.quitar}> - </button>
+      <button onClick={this.limpiar}> Limpiar </button>
+      <hr/>
+      <p> $ { this.props.price }</p>
+    </div>
+    )
+  }
+}
+
+const App = () => ( // Componente Padre porque contiene el componente TarjetaFruta
+  <div>
+    <TarjetaFruta name='Sandia' price={300} />
+    <TarjetaFruta name='Naranja' price={600} />
+    <TarjetaFruta name='Kiwi' price={400} />
+  </div>
+)
+
+
+const container = document.getElementById('root');
+
+const root = createRoot(container); // createRoot(container!) if you use TypeScript
+root.render(<App tab="home" />);

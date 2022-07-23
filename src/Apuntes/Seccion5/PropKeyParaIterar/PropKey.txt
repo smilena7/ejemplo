@@ -1,0 +1,41 @@
+import React, { Component } from "react";
+
+const users = [
+  { id: 1, name: 'Gerardo Gallegos', country: 'Mexico'},
+  { id: 2, name: 'Leanne Graham', country: 'USA'},
+  { id: 3, name: 'Ervin Howell', country: 'Colombia'},
+  { id: 4, name: 'Rodrigo Fernandez', country: 'Peru'},
+  { id: 5, name: 'Alfredo Bauch', country: 'Guatemala'},
+  { id: 6, name: 'Fernanda Valencia', country: 'España'}
+]
+
+class App extends Component {
+  render () {
+    return (
+      <div> 
+        <h3>Iterando</h3>
+        <ul>
+          {users.map((user) => (
+            <li key={user.id}> // Importante usar la prop key para evitar errores de advertencia en la consola. 
+              { user.name } 
+            </li>
+          ))}
+        </ul>
+      </div>
+    )
+  }
+  
+  
+}
+
+export default App
+
+// NOTA: KEY = tecnicamente puede ser cualquier tipo de sting pero debe ser DIFERENTE para cada elemento
+// NOTA2: Por ejemplo, en nuestra lista de array vemos que tenemos una propiedad name, pero no es recomendable usarla en la prop key, porque puede llegar a pasar que dos personas se llamen igual
+// NOTA3: Se recomienda la propiedad id, porque teoricamente es UNICA y DIFERENTE
+// NOTA4: Si por ejemplo, no nos dan una propiedad id en nuestra lista de array, se puede usar lo siguiente:
+// NOTA5: utilizar la propiedad nombre (name) en combinancion del indice (index):
+<li key={index + user.name}>
+</li>
+
+// PERO, esto SOLO usarlo en caso de ultima opcion

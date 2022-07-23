@@ -1,0 +1,68 @@
+import React, { useState, useEffect } from "react"; // Esto es importar con destructuracion
+
+const Header = () => {
+  const styles = {
+    background: 'linear-gradient(20deg, #6813cb, #2575fc)',
+    textAlign: 'center',
+    borderRadius: '0.2em',
+    color: '#FFF',
+    padding: '0.3em',
+    margin: '0.3em',
+    fontSize: '14px'
+  }
+
+  return (
+    <header style={styles}>
+      <h1>
+        Hook useEffect()
+        <span
+          role='img'
+          aria-label='hook emoji'
+        >
+          ⚓
+        </span> 
+      </h1>
+    </header>
+  )
+}
+
+const App = () => {
+  const [ clicks, setClicks ] = useState(0)
+
+  useEffect(() => { // recibe como primer parametor una funcion
+    //Equi se emula:
+    //componentDidMount - una vez que el componente es montado/creado
+    //componentDidUpdate - una vez que el estado es actualizado
+    console.log('Dentro de useEffect', clicks)
+    console.log('%c---------------------------', 'color: green') //cuando ponemos al principio el simbolo y letra %c, por segundo parametros podemos poner estilos css dentro del log
+    
+    return () => {
+      //componentWillUnmount - se emula este metodo cuando retornamos otra funcion ej:
+      console.log('Return de useEffect', clicks)
+
+      //Con este ejemplo podemos ver en la consola que primero se ejecuta el return con el valor inicial o previo del estado
+      //seguido de ejecutara la funcion que tenemos en la linea 36, con el esato actualizado
+      //De esta manera, en caso de que el componente sea desmontado, por ultimo se va a ejecutar la funcion que lo retorna
+      //y por ese motivo podemos utilizar el metodo componentWillUnmount en useEffect
+
+    }
+  }) 
+
+  const add = () => setClicks(clicks + 1)
+  
+  return (
+    <div>
+      <Header />
+      <button onClick={add}>
+        Clicks ({ clicks })
+      </button>
+    </div>
+  )
+}
+
+
+export default App
+
+
+// useEffect lo que nos permite es emular, de alguna manera, los metodos de ciclo de vida que tenemos en los componentes estatales, metodos como lo son:
+// componentDidMount, componentDidUpdate y componentWillUnmount

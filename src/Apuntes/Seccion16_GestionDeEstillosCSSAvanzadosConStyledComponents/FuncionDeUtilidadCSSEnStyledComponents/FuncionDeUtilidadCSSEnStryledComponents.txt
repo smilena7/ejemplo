@@ -1,0 +1,48 @@
+import React from "react"
+import styled, { css } from "styled-components"
+
+
+const Header = styled.header` // componente estilizado de styled-components
+  background: #db7093;
+  text-align: center;
+  border-radius: 0.2em;
+  color: #FFF;
+  padding: 0.3em;
+  margin: 0.3em;
+  font-size: 14px;
+
+`
+
+const primaryStyles = css` // css es la funcion de utilidad. Nota: de debe importar esta utilidad
+  border: ${props => `2px solid ${props.borderColor || 'green'}`}; // Lo que esta en despues de solid es un color de borde dinamico y se lee se lee: en caso de que pasemos el border color (en los componentes Button que estan en el marcado) se podra definir el valor del color, en caso de que no tomara por defecto el color green
+  `
+
+const Button = styled.button`
+  padding: 1em 2em;
+  margin: 1em;
+  ${props => props.primary && primaryStyles} // se lee: en caso que dentro de las props se encuentre la prop primary (en casoq ue se pase la prop primary en los componentes de Button que estan en el marcado), entonces se van a agregar los estilos definidos del componente estilizado primaryStyles (ver linea 16)
+`
+
+const App = () => {
+  return (
+    <div>
+      <Header>
+        <h1> 
+          Styled Components - Funcion de utilidad CSS
+        </h1>
+      </Header>
+
+      <Button>
+        Dispara
+      </Button>
+
+      <Button primary borderColor='red'> // para que la propiedad borderColor funcione es necesario pasar la propiedad primary
+        Green
+      </Button>
+    </div>
+  )
+}
+
+export default App
+
+// Nota: Este es el componente padre (principal) {}

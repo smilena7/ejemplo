@@ -1,0 +1,53 @@
+import React, { useState, useEffect } from "react"; // Esto es importar con destructuracion
+
+const Header = () => {
+  const styles = {
+    background: 'linear-gradient(20deg, #6813cb, #2575fc)',
+    textAlign: 'center',
+    borderRadius: '0.2em',
+    color: '#FFF',
+    padding: '0.3em',
+    margin: '0.3em',
+    fontSize: '14px'
+  }
+
+  return (
+    <header style={styles}>
+      <h1>
+        Reglas de Hooks
+        <span
+          role='img'
+          aria-label='hook emoji'
+        >
+          ⚓
+        </span> 
+      </h1>
+    </header>
+  )
+}
+
+const App = () => {
+  const [ clicks, setClicks ] = useState(0)
+  const add = () => setClicks(clicks + 1)
+
+  return (
+    <div>
+      <Header />
+      <button onClick={add}>
+        Clicks ({ clicks })
+      </button>
+    </div>
+  )
+}
+
+
+export default App
+
+
+// REGLAS DE HOOKS
+// 1. Siempre debemos ejecutar los hooks en el primer nivel del componente (abajo del componente) o dentro de las funciones donde se van a crear hooks personalizados
+// 2. Jamas se deben declarar hooks en condicionales ni en funciones anidadas, ni en ciclos
+// 3. Se pueden crear hooks personalizados pero siempre se debe antenoper la palabra use eje: 
+// const useHttp = () => { 
+//     const [ clicks, setClicks ] = useState(1)
+//}

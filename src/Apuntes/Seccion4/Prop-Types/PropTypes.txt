@@ -1,0 +1,59 @@
+import React, { Component } from "react";
+import PropTypes from 'prop-types';
+
+
+// Props-type: donde se puede validar las props que se pasan a nuestros componentes. Asi como valir el TIPO de datos que esperamos
+
+class Profile extends Component {
+
+  /*  Si se quiere agregar porpTypes a un componente funcional:
+     const Profile = () => {}
+     Profile.propTypes = {}  */
+
+  static propTypes = { // Para hacer uso de las propTypes
+    name: PropTypes.string.isRequired,
+    bio: PropTypes.string,
+    email: PropTypes.string,
+    age: PropTypes.number
+  }
+
+
+  render () {
+    const { name, bio, email } = this.props // destructuracion
+
+    return (
+      <div>
+        <h1>{ name }</h1>
+        <p>
+          { bio }
+        </p>
+        <a 
+          href={`milto:${email}`}
+        >
+          { email }
+        </a>
+      </div>
+    )
+  }
+}
+
+
+class App extends Component {
+  render () {
+    return (
+      <div> 
+        <Profile 
+          name='Manuela Ceballos' // si en lugar de un string, se pasa como numero {12332}, en la consola aparece un error de prop-type
+          bio='Soy una Gestora Ambiental'
+          email='manu-ambiente@gmail.com'
+        />
+      </div>
+    )
+  }
+  
+  
+}
+
+export default App
+
+// Nota: Este es el componente padre (principal)

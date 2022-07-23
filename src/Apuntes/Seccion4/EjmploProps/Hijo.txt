@@ -1,0 +1,33 @@
+import React from 'react'
+
+/* // Array Hijo
+const Hijo = ({dataArray}) => {
+
+  return (
+    <div>
+        {
+        dataArray.map((crema) => (
+            <>
+                <h1>{crema.name}</h1>
+                <h1>{crema.price}</h1>
+            </>
+        ))
+        }
+    </div>
+  )
+} */
+
+// Objetos Hijo
+const Hijo = ({tipo1, tipo2, tipo3}) => {
+    return (
+        <>
+        <h1>{tipo1}</h1>
+        <h1>{tipo2}</h1>
+        <h1>{tipo3}</h1>
+        </>
+    )
+}
+
+
+
+export default Hijo

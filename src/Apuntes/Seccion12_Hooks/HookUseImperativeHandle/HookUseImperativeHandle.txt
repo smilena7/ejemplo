@@ -1,0 +1,82 @@
+import React, { forwardRef, useImperativeHandle, useRef, useState } from "react"; // Esto es importar con destructuracion
+import { useDebounce } from 'use-debounce';
+
+const Header = () => {
+  const styles = {
+    background: 'linear-gradient(20deg, #6813cb, #2575fc)',
+    textAlign: 'center',
+    borderRadius: '0.2em',
+    color: '#FFF',
+    padding: '0.3em',
+    margin: '0.3em',
+    fontSize: '14px'
+  }
+
+  return (
+    <header style={styles}>
+      <h1>
+        Etendiendo hook useImperativeHandle()
+        <span
+          role='img'
+          aria-label='hook emoji'
+        >
+          ⚓
+        </span> 
+      </h1>
+    </header>
+  )
+}
+
+const FancyInput = forwardRef((props, ref) => { // cuando usamos las forwardRef nos llegan por primer parametros las props y como segundo las refs
+  const [ text, setText ] = useState('***')
+  const entrada = useRef()
+
+  useImperativeHandle(ref, () => ({ // este recibe dos parametros, ref y una funcion con un objeto
+    dispatchAlert: () => { // metodos disponibles
+      alert('Hola')
+    },
+
+    setParragraph: (message) => { // metodos disponibles
+      setText(message)
+    },
+
+    focusInput: () => { // metodos disponibles
+      entrada.current.focus()
+    }
+  }))
+  
+  return (
+    <div>
+      <p>{ text }</p>
+      <input type='text' ref={entrada} />
+    </div>
+  )
+})
+
+
+const App = () => {
+  const fancyInput = useRef() // se crea una ref
+
+  const handleClick = () => {
+    fancyInput.current.focusInput()
+  }
+
+  return (
+    <div>
+      <Header />
+      <FancyInput ref={fancyInput} />
+      <button onClick={handleClick}>
+        Dispatch
+      </button>
+    </div>
+  )
+}
+
+
+export default App
+
+// Nota: Este metodo no es que sea muy recomendable aplicarlo, pero es bueno saber o conocerlo por si llegase a ser necesario
+
+// Para poder comprender esta leccion, de este hook, es necesario tener en claro dos principios
+// 1. React.forwardRef() --> Nos ayuda a enviar la ref desde el componente funcional al componente padre (se aprendio con las refs)
+// 2. Ejecutar metodos de instancia --> (se aprendio en la comunicacion y composicion de componentes)

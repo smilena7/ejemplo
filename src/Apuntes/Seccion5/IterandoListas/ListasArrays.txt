@@ -1,0 +1,33 @@
+import React, { Component } from "react";
+
+const frutas = [
+  'fresa',
+  'manzana',
+  'sandia',
+  'kiwi',
+  'durazno',
+  'mango',
+  'piña'
+]
+
+
+class App extends Component {
+  render () {
+    return (
+      <div> 
+        <ul>
+          {frutas.map((fruta) => { // el metodo map, recibe una funcion. El metodo map nos ayuda a trasnofrmar una lista en contra con una funcion de trasnformacion (en funcion arrow functuion). En este ejemplo por ejemplo, nos esta geerando un nuevo array en etiquetas li
+            return (
+              <li>{fruta}</li>
+            )
+          })}
+        </ul>
+      </div>
+    )
+  }
+  
+  
+}
+
+export default App
+

@@ -1,0 +1,108 @@
+import React, { useState } from "react"; 
+
+const Header = () => {
+  const styles = {
+    background: 'linear-gradient(20deg, #6813cb, #2575fc)',
+    textAlign: 'center',
+    borderRadius: '0.2em',
+    color: '#FFF',
+    padding: '0.3em',
+    margin: '0.3em',
+    fontSize: '14px'
+  }
+
+  return (
+    <header style={styles}>
+      <h1>
+        Etendiendo React.memo() para rendimiento
+        <span
+          role='img'
+          aria-label='hook emoji'
+        >
+          ⚓
+        </span> 
+      </h1>
+    </header>
+  )
+}
+
+// React.memo()
+const Counter = React.memo(({ count }) => { // count es  el nombre de la prop (ver linea 74)
+  console.log('%cRender <Count />', 'color: blue')
+
+  return (
+    <h1>
+      { count }
+    </h1>
+  )
+})
+
+const Title = React.memo(({ text }) => { // text es la prop (ver linea 75)
+  console.log('%cRender <Title />', 'color: orangered')
+
+  return (
+    <h1>
+      { text }
+    </h1>
+  )
+})
+
+
+const App = () => {
+  const [ title, setTitle ] = useState('')
+  const [ count, setCount ] = useState(0)
+
+  const handleInput = (e) => {
+    setTitle(e.target.value)
+  }
+
+  const handleAdd = () => {
+    setCount(count + 1)
+  }
+
+  return (
+    <div>
+      <Header />
+      <input 
+        type='text' 
+        onChange={handleInput}
+        value={title}
+      />
+      <button onClick={handleAdd}>
+        Add
+      </button>
+      <Counter count={count} />
+      <Title text={title} />
+    </div>
+  )
+}
+
+
+export default App
+
+
+// React.memo hace referencia a memorizar, y con este se mejora el rendimiento de nuestros componentes funcionales
+
+// Al componente Counter se le pasa la propiedad (prop) count de la {count} que viene del estado, es decir:
+// Counter = componente
+// count = prop
+// {count} = estado
+// Asi mismo para el componente Title
+// Title = componente
+// text = prop
+// title = estado
+
+// Si hacemos el componente Counter, como el componente Title (o sea, sin usar el React.memo) asi:
+
+// const Title = ({ text }) => { // text es la prop (ver linea 75)
+//   console.log('%cRender <Title />', 'color: orangered')
+
+//   return (
+//     <h1>
+//       { text }
+//     </h1>
+//   )
+// }
+
+// en la consola vamos a hacer que al momento de escribir algo en el input o dar click en el boton, ambos componentes se van a actualizar al tiempo
+// pero con React.memo, podemos ver que al dar click en el boton se siguen actualizando los dos, PERO al escribir algo en el input, solo se renderiza en consola lo del input

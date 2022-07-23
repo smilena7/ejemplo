@@ -1,0 +1,47 @@
+import React from "react"
+import styled from "styled-components"
+
+
+const Header = styled.header` // componente estilizado de styled-components
+  background: linear-gradient(20deg, #db7093, #daa357);
+  text-align: center;
+  border-radius: 0.2em;
+  color: #FFF;
+  padding: 0.3em;
+  margin: 0.3em;
+  font-size: 14px;
+  
+  h1 {
+    color: purple;
+  }
+
+  .big {
+    font-size: 20px;
+    color: black;
+  }
+  `
+
+const App = () => {
+  return (
+    <div>
+        <Header>
+          <h1> 
+            Style Components
+          </h1>
+          <div className='big'>
+            Ejemplo: Estilizando con clases CSS en elementos anidados
+          </div>
+        </Header>
+    </div>
+  )
+}
+
+export default App
+
+// Elemento anidado en el componente estilizado Header: h1 linea 28 a la 30
+// Elemento anidado con clase en el componente estilizado Header: div con clase big linea de la 31 a la 33
+
+// ¿Como estilizar elementos anidados?
+// Dentro del componente estilizado Header:
+// Para el h1: de la linea 14 a la 16
+// Para el div con la clase big: de la linea 18 a la 21

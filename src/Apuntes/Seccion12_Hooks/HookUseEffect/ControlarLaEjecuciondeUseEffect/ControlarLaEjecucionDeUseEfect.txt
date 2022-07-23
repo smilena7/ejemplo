@@ -1,0 +1,69 @@
+import React, { useState, useEffect } from "react"; // Esto es importar con destructuracion
+
+const Header = () => {
+  const styles = {
+    background: 'linear-gradient(20deg, #6813cb, #2575fc)',
+    textAlign: 'center',
+    borderRadius: '0.2em',
+    color: '#FFF',
+    padding: '0.3em',
+    margin: '0.3em',
+    fontSize: '14px'
+  }
+
+  return (
+    <header style={styles}>
+      <h1>
+        Controlar la ejecucion de useEffect()
+        <span
+          role='img'
+          aria-label='hook emoji'
+        >
+          ⚓
+        </span> 
+      </h1>
+    </header>
+  )
+}
+
+const App = () => {
+
+  const [ num, setNum ] = useState(0)
+  const [ emoji, setEmoji ] = useState('😸')
+
+  // Controlar el useEffect con un segundo parametro (un array)
+  useEffect(() => {
+    alert('useEffect')
+  }, [ num, emoji ])
+
+
+  const addNum = () => setNum(num + 1)
+
+  const toggleEmoji = () => {
+    const nextEmoji = emoji === '😸' ? '🐼' : '😸'
+    setEmoji(nextEmoji)
+  }
+  
+  return (
+    <div>
+      <Header />
+      <button onClick={addNum}>
+        ADD ({ num })
+      </button>
+      <button onClick={toggleEmoji}>
+        Alternar Emoji
+      </button>
+      <h1>{ emoji }</h1>
+    </div>
+  )
+}
+
+
+export default App
+
+
+// En esta clase aprenderemos a controlar el hook useEffect, es decir, cuando se debe ejecutar y cuando no
+// NOTA: El hook useEffect se controla pasando un array como segundo parametro (recordemos que el primer parametro que recibe el hook es una funcion) 
+// 1. Si se le pasa un array vacio, el useEffect solo se ejecuta una vez (cuando se hace el montaje del componente - aparece por primera vez en la pantalla o se recarga la pagina)
+// 2. Dentro de ese array, podemos definir variables y en caso de que estas cambien, si se va a disparar el useEffect, si permanecen iguales, este no se disparara, es decir, con las propiedades con que se inicializa el estado eje (num o emoji)
+// tambien es posible pasarle las dos o varias propiedades al tiempo ejem [ emoji, num ]

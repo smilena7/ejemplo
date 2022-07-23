@@ -1,0 +1,32 @@
+import React, { Component } from "react";
+
+
+class App extends Component {
+  state = {
+    marcado: `
+      <h1>Inyectando HTML con React</h1> // codigo HTML
+      </br>                              // codigo HTML
+      </hr>                              // codigo HTML
+      <a href="#">Algun link</a>         // codigo HTML
+    `
+  }
+
+  render () {
+    return (
+      <div> 
+          <div
+            dangerouslySetInnerHTML={{ // con esto react puede inyectar codigo HTML
+              __html: this.state.marcado
+            }}
+          >
+
+          </div>
+        </div>
+    )
+  }
+  
+}
+
+export default App
+
+// Nota: Se debe tener mucho cuidado al inyectar codigi HTML

@@ -1,0 +1,74 @@
+import React from "react";
+import { createRoot } from 'react-dom/client';
+import ReactDOM from 'react-dom';
+
+
+// Creando un componente con Estado usando clases
+class TarjetaFruta extends React.Component { // Componente hijo TrajetaFruta
+  constructor () { // Metodo constructor. Este se ejecuta en el momento en que se crea el componente -TrajetaFruta-
+    super () // Metodo que se llama al definir el metodo constructor
+
+    // this.agregar = this.agregar.bind(this)  NOTA: con bind(this), le indicamos al metodo agregar que cuando dentro de el se llame a this, este apunte a la clase y no al propio metodo
+    // this.quitar = this.quitar.bind(this)
+
+    const METHODS = [ // metodo mas practico de usar bind
+      'agregar',
+      'quitar',
+      'limpiar'
+    ]
+
+    METHODS.forEach((method) => {
+      this[method] = this[method].bind(this)
+    })
+
+    this.state = { // Se inicializa el estado
+      cantidad: 0
+    }
+  }
+
+  agregar () { // creamo un metodo de la clase en este caso agregar
+    this.setState({ 
+      cantidad: this.state.cantidad + 1 // con esto actualizamos el estado
+    }) 
+  }
+
+  quitar () { // creamo un metodo de la clase en este caso quitar
+    this.setState({ // El setState sirve para ACTUALIZAR EL ESTADO
+      cantidad: this.state.cantidad - 1 // con esto actualizamos el estado
+    }) 
+  }
+
+  limpiar () { // creamo un metodo de la clase en este caso limpiar
+    this.setState({ 
+      cantidad: 0 // con esto actualizamos el estado
+    }) 
+  }
+  
+  render () { // Mteodo render
+    return (
+    <div>
+      <h3>{ this.props.name }</h3>
+      <div>Cantidad: { this.state.cantidad }</div>
+      <button onClick={this.agregar}> + </button> {/* // para apuntar al metodo agregar (linea 19). */}
+      <button onClick={this.quitar}> - </button>
+      <button onClick={this.limpiar}> Limpiar </button>
+      <hr/>
+      <p> $ { this.props.price }</p>
+    </div>
+    )
+  }
+}
+
+const App = () => ( // Componente padre porque contiene el componente TarjetaFruta
+  <div>
+    <TarjetaFruta name='Sandia' price={300} />
+    <TarjetaFruta name='Naranja' price={600} />
+    <TarjetaFruta name='Kiwi' price={400} />
+  </div>
+)
+
+
+const container = document.getElementById('root');
+
+const root = createRoot(container); // createRoot(container!) if you use TypeScript
+root.render(<App tab="home" />);

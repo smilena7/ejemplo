@@ -1,0 +1,57 @@
+import React from "react"
+import styled, { keyframes } from "styled-components"
+
+const anima = keyframes`
+// 2 formas de hacerlo: 1 con las propiedades from y to
+  /* from {
+    background: #000;
+  }
+
+  to {
+    background: #db7093;
+  } */
+// 2 con las propiedades de porcentaje
+  0% {
+    background: #000;
+    transform: scale(1);
+  }
+
+  50% {
+    background: #db7093;
+    transform: scale(0.8);
+  }
+
+  100% {
+    background: #000;
+    transform: scale(1);
+  } 
+`
+
+const Header = styled.header` // componente estilizado de styled-components
+  background: #db7093;
+  text-align: center;
+  border-radius: 0.2em;
+  color: #FFF;
+  padding: 0.3em;
+  margin: 0.3em;
+  font-size: 14px;
+  animation: ${anima} 2s ease-in-out infinite;
+`
+const App = () => {
+  return (
+    <div>
+      <Header>
+        <h1> 
+          Styled Components - Animaciones 
+        </h1>
+      </Header>
+    </div>
+  )
+}
+
+export default App
+
+
+// NOTA: Para poder hacer uso de animaciones en styled components, es necesario como primer paso, importar con destructuracion la funcion keyframes
+// Paso seguido, debemos almacenar la animacion en una constante (ver linea 4)
+// Luego se inyecta en el componente estilizado de nuestro interes (ver linea 38)

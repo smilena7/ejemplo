@@ -1,0 +1,27 @@
+import React from "react"
+import Acordeon from './componentes/Acordeon/Acordeon'
+
+
+const App = () => {
+  return (
+    <div>
+      <Acordeon 
+        title='Ejemplo de acordion'
+        content='Lorem ipsum...'
+        bgColor='#000'
+      />
+      <Acordeon 
+         title='Porque Universidad React'
+         content='El curso mas completo y actualizado de React ✪, aprenderás desde nivel cero hasta conocer y dominar no solo React si no su core y podrás crear componentes de calidad de producción.'
+      />
+      <Acordeon 
+        title='Ejemplo de Acordion'
+        content='Lorem ipsum...'
+        bgColor='orangered'
+      />
+    </div>
+  )
+}
+
+export default App
+

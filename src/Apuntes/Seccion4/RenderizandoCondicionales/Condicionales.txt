@@ -1,0 +1,47 @@
+import React, { Component } from "react";
+
+const Saludo = (props) => {
+
+  // FORMA 2
+  return (
+    <div>
+      
+      {/* <div> FORMA 3
+        { props.name && <strong> { props.name } </strong> }
+      </div> */}
+      { props.saluda 
+        ? (
+            <h1>Hola, eres genial!</h1>
+
+        )
+        : (
+            <p>Ups, no hay saludo para ti</p>
+
+        )
+      
+      }
+    </div>
+  )
+
+  // FORMA 1
+  if (props.saluda) {
+    return (
+      <h1>Hola, eres genial!</h1>
+    )
+  }
+  return (
+    <p>Ups, no hay saludo para ti</p>
+  )
+}
+
+const App = () => {
+    return (
+        <div> 
+          <Saludo saluda ((Esto hace parte del ejemplo forma 3: (name='Sandy Pro'))) />
+        </div>
+    )
+  
+}
+
+export default App
+

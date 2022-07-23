@@ -1,0 +1,74 @@
+import { createStore } from 'redux'
+
+// Nombres de constantes de acciones
+const INCREMENT = 'INCREMENT'
+const DECREMENT = 'DRECREMENT'
+
+// REDUCER:
+// Es una funcion pura que nos regresa el estado actual.
+// Esta funcion pude declararse con la palabra reservada function
+// o con constantes y arrow function (const reducer = () => {})
+
+const initialState = 0
+
+function counter (state = initialState, action) { // este es el reducer
+    switch (action.type) { // se lee: en caso de que la ccion sea tipo 'INCREMENT', que retorne:
+        case INCREMENT:
+            return state + 1
+
+        case DECREMENT:
+            return state - 1
+
+        default: // siempre en nuestra funcion reducer se debe retornar el estado
+            return state
+    }
+}
+
+
+// STORE
+// Es el almacenamiento de nuestro estado, es decir que lo que la funcion reducer nos retorne
+// es lo que se va a almacenar dentro del store
+const store = createStore(counter)
+
+
+// Metodos para poder consumir y actualizar el estado: NOTA: Existe un paquete de npm que nos ayuda con este proceso (se llama react-redux y se intala npm i react-redux)
+// store.getState(): para obtener el estado
+// store.dispatch(aqui es un {}): para emitir una accion
+// store.subscribe(recibe aqui una funcion): para podernos suscribir a los cambios
+
+
+// console.log(store.getState())
+
+store.subscribe(() => {
+    console.log(store.getState())
+})
+
+// Creadores de acciones: Son funciones que nos retornan los objetos que describen las acciones
+const increment = () => {
+    return {
+        type: INCREMENT
+    }
+}
+
+const decrement = () => {
+    return {
+        type: DECREMENT
+    }
+}
+
+// Acciones
+store.dispatch(increment())
+
+
+setTimeout(() => {
+    store.dispatch(decrement())
+}, 2000)
+
+
+
+export default store
+
+
+
+// Nota: debemos instalar el paquete de redux con el siguiente comando
+// npm i redux

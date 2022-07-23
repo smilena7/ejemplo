@@ -1,0 +1,112 @@
+import React, { Component } from "react";
+
+// NOTA: los metodos de ciclo de vida que veremos a continuacion son exclusivamente para componentes clases
+
+class Contador extends Component { // Todos nuestros componentes de React que extienden de la clase Component, tiene por defecto un metodo contructor predefinido
+  // Utilidades del metodo constructor:
+  constructor (props) {
+    super(props)
+
+    // 2. Dar contexto a this
+    this.agregar = this.agregar.bind(this) // con el metodo constructor podemos solucionar lo del this en el metodo agregar
+
+    // 3. Crear refs
+    this.title = React.createRef() // ahora en el marcado (en este caso h2), le pasamos la prop ref. NOTA: title es el nombre de la ref
+
+    // 1. Inicializar estados: num 0, y 4. Inicializar valores del estado que provengan de las props:
+    this.state = {
+      num: this.props.num // segundo num: asi se llama la prop
+    }
+  }
+
+  agregar () { // al trabajar con un metodo de clase, this esta apuntando directamente al metodo (agregar) y no al componente que es el que tiene el metodo setState (App)
+    console.log(this.title)
+    
+    this.setState(sate => ({
+      num: this.state.num + 1
+    }))
+  }
+
+
+  render () {
+    return ( 
+      <div>
+        <h2 
+          ref={this.title}
+        >
+          { this.state.message }
+        </h2>
+        <button onClick={this.agregar}>
+          Click ( { this.state.num } )
+        </button>
+      </div>
+    )
+  }
+}
+
+
+class App extends Component { // Todos nuestros componentes de React que extienden de la clase Component, tiene por defecto un metodo contructor predefinido
+
+  render () {
+    return ( 
+      <div>
+        <h1>
+          Metodos de cliclo de vida: Metodo constructor
+        </h1>
+        <Contador num={1200} />
+        <Contador num={20} />
+      </div>
+    )
+  }
+}
+
+export default App
+
+
+// NOTA: Como el constructor del componente Contador, tieme como primer parametro props, a la hora de inicializar el estado de num, no es necesario poner this.props.num, se puede dejar directamente props.num
+// NOTA2: No es buena practiva utilizar la caracteristica de inicializar propiedades del estado que vengan de las props, ya que estas no estan sincronizadas con con el marcado (donde se manda a llamar el componente Contador por ejemplo y se da valor a num)
+// NOTA3: Siempre que declaremos el metodo constructor, debemos de ejecutar el super y pasar las props
+// NOTA4: En resumen, el metodo constructor nos puede ayudar a:
+// 1. Pasar el contexto correcto a lo metodos de clases
+// 2. A crear refs para acceder el DOM de algun elemento en el DOM real
+// 3. Inicializar el estado bien sea con un valor absoluto o desde las props.
+
+// NOTA. Todo esto puede funcionar sin necesario de metodo constructor asi:
+/* class Contador extends Component { 
+ // constructor (props) {
+ //   super(props)
+    
+ // }
+
+  title = React.createRef() 
+  
+  state = {
+      num: this.props.num 
+    }
+
+  agregar = () => { 
+    console.log(this.title)
+    
+    this.setState(sate => ({
+      num: this.state.num + 1
+    }))
+  }
+
+
+  render () {
+    return ( 
+      <div>
+        <h2 
+          ref={this.title}
+        >
+          { this.state.message }
+        </h2>
+        <button onClick={this.agregar}>
+          Click ( { this.state.num } )
+        </button>
+      </div>
+    )
+  }
+}
+
+ */

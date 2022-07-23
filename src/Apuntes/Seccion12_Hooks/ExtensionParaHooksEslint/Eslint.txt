@@ -1,0 +1,17 @@
+// Es necesario instalar en la terminal el comando:
+// npm i -D eslint-plugin-react-hooks
+
+Luego copiar en el package.json, en la parte de eslintConfig:
+"eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ],
+    "plugins": [
+      "react-hooks"
+    ],
+    "rules": {
+      "react-hooks/rules-of-hooks": "error",
+      "react-hooks/exhaustive-deps": "warn"
+    }
+  },

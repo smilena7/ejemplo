@@ -1,0 +1,32 @@
+import React from 'react'
+import { BrowserRouter, Route } from 'react-router-dom'
+
+const Hola = () => (
+  <h1>Hola</h1>
+)
+
+const Productos = () => (
+  <h1>Productos</h1>
+)
+
+const App = () => {
+  return (
+    <BrowserRouter>
+      <Route path='/hola' component={Hola}/>
+      <Route path='/productos' component={Productos}/>
+    </BrowserRouter>
+  )
+}
+
+export default App
+
+
+// Lo primero es instalar react router, con el siguiente comando:
+// npm i react-router-dom
+
+// 2. Realizamos la importacion con destructuracion de algunos componentes de react router
+
+// 3. Debemos envolvert toda nuestro marcado con el componente BrowserRouter (se recomineda utilizarlo como el componente principal)
+// Y dentro de este se utiliza el componente Route, el cual es el encargado de montar nuestras vistas o componentes en funcion de la url de navegacion
+// a este componente se la pasa una prop lamada path que es un string y es practicamente la url de navegacion path='/hola'
+// posteriormente se le pasa una segunda prop llamada component, en la cual se le debe pasar el componente que queremos renderizar cuando la url tenga esta coincidencia

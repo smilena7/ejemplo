@@ -1,0 +1,50 @@
+import React from "react"
+import styled from "styled-components"
+
+
+const Header = styled.header` // componente estilizado de styled-components
+  background: linear-gradient(20deg, #db7093, #daa357);
+  text-align: center;
+  border-radius: 0.2em;
+  color: #FFF;
+  padding: 0.3em;
+  margin: 0.3em;
+  font-size: 14px;
+  
+  h1 {
+    color: purple;
+  }
+
+  div {
+    width: 50px;
+    height: 50px;
+    background: #000;
+  }
+  `
+
+  /* const Title = styled.h1`
+    color: blue;
+  ` */
+
+const App = () => {
+  return (
+    <div>
+        <Header>
+          <h1>
+            Style Components
+          </h1>
+          <div>*</div>
+
+          {/* <Title>
+            Styled Components
+          </Title> */}
+        </Header>
+    </div>
+  )
+}
+
+export default App
+
+// Para estilizar componentes anidado, por ejemplo el h1 que esta en la linea 27, se puede hacer de dos formas:
+// 1. Creando un componente estilizado (Title), y luego en lugar de h1 usar la etiqueta estilizada Title
+// 2. La otra forma es hacerlo dentro del componente estilizado Header -ver linea 17- creado previamente (esto solo en caso concretos para elementos h1 que se encuentren denreo de Header - linea 21)

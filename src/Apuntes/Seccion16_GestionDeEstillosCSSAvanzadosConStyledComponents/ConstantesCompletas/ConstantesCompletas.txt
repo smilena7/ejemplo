@@ -1,0 +1,40 @@
+import React from "react"
+import styled from "styled-components"
+
+// Variable/constante basica - poorque unicamente se esta almacenando el valor de la propiedad. Sin embargo tambien podemos guardar el nombre y el valor de la propiedad dentro de variables o constante
+const colorPrincipal = '#789DFF'
+
+// Variable/constante completa
+const paddingBasic = 'padding: 1em' // ver linea 15
+
+const Header = styled.header` // componente estilizado de styled-components
+  background: ${colorPrincipal};
+  text-align: center;
+  border-radius: 0.2em;
+  color: #FFF;
+  ${paddingBasic};
+  margin: 0.3em;
+  font-size: 14px;
+`
+
+const Subtitle = styled.h2` // componente estilizado de styled-components
+  color: ${colorPrincipal};
+`
+
+const App = () => {
+  return (
+    <div>
+        <Header>
+          <h1>
+            Styled Components
+          </h1>
+        </Header>
+        <Subtitle>
+          Ejemplo de título
+        </Subtitle>
+    </div>
+  )
+}
+
+export default App
+

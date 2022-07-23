@@ -1,0 +1,124 @@
+import React, { useState, useReducer } from "react"; // Esto es importar con destructuracion
+import { useDebounce } from 'use-debounce';
+
+const Header = () => {
+  const styles = {
+    background: 'linear-gradient(20deg, #6813cb, #2575fc)',
+    textAlign: 'center',
+    borderRadius: '0.2em',
+    color: '#FFF',
+    padding: '0.3em',
+    margin: '0.3em',
+    fontSize: '14px'
+  }
+
+  return (
+    <header style={styles}>
+      <h1>
+        Etendiendo hook useReducer()
+        <span
+          role='img'
+          aria-label='hook emoji'
+        >
+          ⚓
+        </span> 
+      </h1>
+    </header>
+  )
+}
+
+// dispatch({ type: 'INCREMENT', title: 'algo })
+const reducer = (state, action) => { // cuando utilizamos la funcion reducer (linea 37) dentro del hook useReducer, este recibe por primer parametro el estado actual previo a la actualizacion, y por segundo parametro recibe una accion, y por lo regular  ambos son objetos
+  switch (action.type) {
+    case 'INCREMENT': 
+      return {
+        ...state,
+        count: state.count + 1
+      }
+
+      case 'DECREMENT': 
+        return {
+          ...state,
+          count: state.count - 1
+        }
+
+      case 'SET_TITLE':
+        return {
+          ...state,
+          title: action.title
+        }
+
+      default:
+        return state
+  }
+}
+
+const App = () => {
+  // const [count, setCount  ] = useState(0)
+  // const [title, setTitle  ] = useState('Hola')
+  const [ state, dispatch ] = useReducer(reducer, {
+    count: 0,
+    title: 'Hola'
+  })
+
+  const increment = () => {
+    dispatch({ type: 'INCREMENT' })
+  }
+
+  const decrement = () => {
+    dispatch({ type: 'DECREMENT' })
+  }
+
+  const handleTitle = (e) => {
+    // setTitle(e.target.value)
+    dispatch({ 
+      type: 'SET_TITLE', 
+      title: e.target.value 
+    })
+  }
+
+  return (
+    <div>
+      <Header />
+      <input 
+        type='text'
+        onChange={handleTitle} 
+        value={state.title}
+      />
+      <button onClick={increment}>
+        Increment
+      </button>
+      <button onClick={decrement}>
+        Decrement
+      </button>
+      <h1>
+        { state.count } - { state.title }
+      </h1>
+    </div>
+  )
+}
+
+
+export default App
+
+// Nota: Recordar importar el useReducer
+
+// El hook use Reducer, al igual que el useState, nos regresa un arreglo (un array) con dos valores, el primero el estado (state) y el segundo un metodo (dispatch)
+// PERO, con la diferencia que useReducer() recibe dos parametros, el primero una funcion (que es el reducer) y el segundo parametro el estado inicial (que puede ser cualquier cosa, pero como recomendacion es que sea un objeto): useReducer(() => {}, {})
+// Adentro de este segundo parametro (objeto), se inicializan las propiedades a trabajar ej count, title
+// El primer parametro (de funcion), de puede declarar afuera (antes del componente) y luego llamarlo en el primer parametro
+// NOTA: La funcion recuder tiene que ser una funcion pura:
+// Cuando hablamos de una funcion pura, en terminos simples, solamente debemos entender dos principios basicos:
+// 1. Dados unos parametros de entrada (a, b), siempre nos va a dar el mismo resultado de salida, es decir:
+// const reducer (a, b) => {
+//   return a + b
+// }
+// Por ejemplo, si en este caso si la funcion pura retornara la suma de los parametros que esta recibiendo (a + b), siempre que reciba los mismos parametros de entrada, siempre nos va a retornar los mismos resultados
+// por lo tanto aqui adentro no podemos retornar resultados aleatorios porque en este caso ya no seria una funcion pura
+// 2. Las funciones pura solamente se dedican a recibir unos valores de entrada (a, b) y a retornar unos de salida a + b. Estas funciones jamas pueden realizar modificaciones fuera de su ambito (fuera de la funcion)
+
+// NOTA: LA IDEA DE LOS REDUCER ES LO SIGUIENTE:
+// cuando se utilice el metodo dispatch, a este le tengo que pasar un objeto: dispatch({})
+// y para poder diferencias las diferentes operaciones o acciones, se suele utilizar la propiedad type y luego un string con el  nombre de la accion: { type: 'INCREMENT' }
+// asi que todo junto seria: dispatch({ type: 'INCREMENT' })
+// NOTA: El objeto que nosotros le pasamos, cuando utilizamos el metodo dispatch, es el que nos va a llegar desde la accion, por lo tanto, dentro de reducer se puede hacer un condicional

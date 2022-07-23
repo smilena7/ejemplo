@@ -1,0 +1,91 @@
+import React from 'react'
+import { BrowserRouter, Route, Link, NavLink } from 'react-router-dom'
+import './App.css'
+
+const Hola = () => (
+  <h1>Hola</h1>
+)
+
+const Productos = () => (
+  <h1>Productos</h1>
+)
+
+const Home = () => (
+  <h1>Home</h1>
+)
+
+const navStyles = {
+  display: 'flex',
+  justifyContent: 'space-around'
+}
+
+const NavActive = { // constante de estilos
+  color: 'orange'
+}
+
+const Navegation = () => (
+  <nav style={navStyles}>
+    <NavLink 
+      to='/' 
+      exact 
+      activeStyle={NavActive}
+    >
+      Home 
+    </NavLink>
+    <NavLink 
+      to='/hola' 
+      activeClassName='navActive'
+    >
+      Hola 
+    </NavLink>
+    <NavLink 
+      to='/productos' 
+      activeStyle={NavActive}
+      isActive={(match, location) => {
+        console.log(match)
+        if (!match) return false // se lee: en caso de que no exista el objeto match, que me retorne false
+       
+        return !match.isExact // y en caso, si es match y es inexacta, que me retorne true
+      }}
+    >
+      Productos 
+    </NavLink>
+  </nav>
+)
+
+const App = () => {
+  return (
+    <BrowserRouter>
+      <Navegation />
+      <Route path='/' exact render={Home} /> 
+      <Route path='/hola/' render={Hola} />
+      <Route path='/productos/:id?'render={Productos} />
+    </BrowserRouter>
+  )
+}
+
+export default App
+
+// Componente NavLink es una extension del componente Link
+// Lo primero es hacer la importacion del componente, recordando que los componentes inicial con la primera letra mayuscula (NavLink)
+// NavLink es una version del componente Link, pero nos ofrece algunas otras props que nos pueden ser muy utilies cuando vayamos a desarrollar menus de navegacion
+
+// Props especiales que recibe el componente Navlink:
+// 1. activeStyles: es una prop que recibe un objeto con estilos CSS en linea (ver linea 24)
+// Los estilos que se pasan a traves de la prop activeStyle, son estilos que se muentran o aplican en caso de que la ruta se encuentre activa (en este caso la ruta /hola)
+// 2. activeClassName: nos aplica una clase de css, en caso de que la ruta se encuentre activa
+// 3. isActive: recibe una funcion, y esta funcion debe retornar true o false, dependiendo si queremos que el link se marque como activo o no (ver linea 44)
+// de esta manera, si marcamos false, nunca se va a mostrar activa la ruta, caso contrario si marcamos true, siempre se mostrara activa la ruta, estemos en ella o no
+// Nota: dentro de la funcion isActive, recibimos dos objetos en el parametro: (match, location)
+// con estos objetos nosotros podemos decidir o hacer alguna logica para declarar cuando exactamente queremos que el NavLink se encuentre activo o no, ejem (ver linea 46)
+// con este ejemplo, nos marcara que el NavlLink de producto no se encuentre activo aun asi demos click en esta ruta, este solo se encuentra activo si a parte de la ruta /productos, se le pasa informacion aidiconal (esta es la funcionalidad de lo que se agrego en el linea 62, sobre :id?) como por ejemplo /productos/jhaggsk (en este ejemplo no tiene que ser nada en especifico)
+
+
+
+
+
+// HOJA DE ESTILO CSS
+
+.navActive {
+    color: #ff008d;
+}

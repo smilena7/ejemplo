@@ -1,0 +1,50 @@
+import React from "react"
+import styled from "styled-components"
+
+const Header = styled.header` // componente estilizado de styled-components
+  background: #db7093;
+  text-align: center;
+  border-radius: 0.2em;
+  color: #FFF;
+  padding: 0.3em;
+  margin: 0.3em;
+  font-size: 14px;
+`
+
+const Input = styled.input.attrs((props) => ({
+  placeholder: props.placeholder || 'Ingresa el texto', 
+  type: props.type || 'text'
+}))`
+  padding: 1em;
+  border: 1px solid blue;
+`
+
+const App = () => {
+  return (
+    <div>
+      <Header>
+        <h1> 
+          Styled Components
+        </h1>
+      </Header>
+
+      <Input />
+
+      <Input placeholder='Tu cerveza favorita 🍺' />
+
+    </div>
+  )
+}
+
+export default App
+
+// NOTA: Con styled components podemos hacer uso de atributos html de forma directa, asi por ejemplo:
+//  <Input 
+//     placeholder='Ohh, yeah'
+//     type='date'
+//  />
+
+// SIN EMBARGO, desde la propia construccion de los componentes de styled-components, podemos asignar valores a los atributos, asi:
+// Esto se puede logarra atraves del metodo attrs() (ver linea 14)
+// dentro de este metodo recibimos una funcion y como primer para metro de esta funcion recibimos las props
+// y en este punto debemos retornar un objeto con los atributos que queremos que tenga por defecto (como en este ejemplo hacemos uso del arrow function, podemos retornar directamente con () y dentro de este podemos el -objeto{}-)

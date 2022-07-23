@@ -1,0 +1,44 @@
+import React, { Component } from "react";
+
+const Title = ({ uiColor, children }) => { // destructuramos el objeto que llega de las props (ver lineas 7 y 16)
+  const styles = {
+    padding: '0.3em',
+    color: '#fff',
+    background: uiColor, // despues se puede usar directamente asi (sin necesidad de poner props.uiColor o props.children)
+    borderRadius: '0.3em',
+    textAlign: 'center',
+    fontSize: '50px'
+  }
+
+
+  return (
+    <h1 style={styles}>
+      { children }  
+    </h1>
+  )
+}
+
+class App extends Component {
+  state = {
+    uiColor: 'tomato'
+  }
+
+  render () {
+    const { uiColor } = this.state // la destructuracion tambien se puede aplicar en el metodo render y ver linea 32
+    return (
+      <div> 
+        <Title 
+          uiColor={uiColor} // y se aplicariectamente
+        >
+          Super <em>PRO</em>
+        </Title>
+      </div>
+    )
+  }
+  
+  
+}
+
+export default App
+
+// NOTA: importar este file (destructuracion.js) en el file prinicpal index.js

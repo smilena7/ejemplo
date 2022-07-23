@@ -1,0 +1,83 @@
+import React, { Component } from "react";
+
+// NOTA: los metodos de ciclo de vida que veremos a continuacion son exclusivamente basado en clases
+
+class Http extends Component {
+  state = {
+    photos: []
+  }
+
+  componentDidMount () {
+    fetch('https://jsonplaceholder.typicode.com/photos')
+      .then(res => res.json())
+      .then(photos => this.setState({ photos }))
+  }
+
+  render () {
+    const { photos } = this.state
+    return (
+      <div>
+        { photos.map(photo => (
+          <img 
+            key={photo.id}
+            src={photo.thumbnailUrl}
+            alt={photo.title}
+          />
+        ))}
+      </div>
+    )
+  }
+}
+
+class Events extends Component {
+  state = {
+    with: window.innerWidth
+  }
+
+  componentDidMount () {
+    window.addEventListener('resize', this.handlerResize) // con el tipo resize para que este enevto sea disparado cada que el usuario cambie de tamaño la ventada de su navegador
+
+  }
+
+  handlerResize = () => {
+    this.setState({
+      with: window.innerWidth
+    })
+  }
+
+  render () {
+    return (
+      <div>
+        <h2>Events { this.state.with } </h2>
+      </div>
+    )
+  }
+}
+
+class App extends Component { 
+  componentDidMount () {
+    // Solicitudes HTTP
+
+    // Agregar Event Listeners
+
+
+  }
+
+  render () { 
+    return ( 
+      <div>
+        <h1>
+          Metodos de cliclo de vida: Metodo componentDidMount
+        </h1>
+        <Events />
+      </div>
+    )
+  }
+}
+
+export default App
+
+
+// NOTA: El metodo componentDidMount es utilizado para hacer solicitudes HTTP
+// 2. Tambien es ideal para agregar Event Listeners o escuchadores de evento dentro de la pagina
+

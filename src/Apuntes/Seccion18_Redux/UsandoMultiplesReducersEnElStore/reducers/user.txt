@@ -1,0 +1,8 @@
+function user (state = { name: 'Gerardo' }, action) { // segundo reducer
+    switch (action.type) { 
+        default: 
+            return state
+    }
+}
+
+export default user

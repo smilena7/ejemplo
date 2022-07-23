@@ -1,0 +1,19 @@
+import React, { Component } from "react";
+import TarjetaFruta from './componentes/TarjetaFruta/TarjetaFruta';
+
+
+class App extends Component {
+  render () {
+    return (
+      <div>
+        <TarjetaFruta name='Sandia' price={300} />
+        <TarjetaFruta name='Naranja' price={200} />
+        <TarjetaFruta name='Kiwi' price={500} />        
+      </div>
+    ) 
+  } 
+}
+
+  export default App
+
+// NOTA: Recordar importar el componente TarjetaFruta que se encuenta en un file .js aparte, y exportar este, claramente

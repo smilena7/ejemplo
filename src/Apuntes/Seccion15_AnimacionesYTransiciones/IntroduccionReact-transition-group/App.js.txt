@@ -1,0 +1,44 @@
+import React, { useState } from "react"
+import { TransitionGroup, CSSTransition } from 'react-transition-group'
+import '../src/App.css'
+
+const App = () => {
+  const [ clicks, setClicks ] = useState(0)
+
+  const increment = () => setClicks(clicks + 1)
+
+  const decrement = () => setClicks(clicks - 1)
+
+  return (
+    <div>
+      <button onClick={increment}>
+        +
+      </button>
+      <button onClick={decrement}>
+        -
+      </button>
+      <div className='box'>
+        <TransitionGroup>
+          <CSSTransition
+            timeout={1000} // Este debe estar sincronizado con la contidad de milisegundos que se defina en trasition (en el archivo de estilos css)
+            classNames='fade'
+            key={clicks}
+            >
+            <div>
+              { clicks }
+            </div>
+          </CSSTransition>
+        </TransitionGroup>
+      </div>
+    </div>
+  )
+}
+
+export default App
+
+// NOTAAA: Lo primero que se debe hacer es instalar el paquete de react-transition-group, y este se hace con el siguiente comando:
+// npm i react-transition-group
+
+// LO SEGUNDO, es importarlo destructurando sus dos propiedades (ver linea 2)
+
+// Nota: En pocas palabras, las propiedades TransitionGroup y CSSTransition lo que hacen es clorar el marcado que estan envolviendo, en este caso los clicks que se imprimen en un div

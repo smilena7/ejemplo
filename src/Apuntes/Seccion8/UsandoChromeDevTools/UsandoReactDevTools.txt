@@ -1,0 +1,95 @@
+import React, { Component } from "react";
+
+const Unicorn = () => ( // forma correcta de ingresar un emoji
+  <span role='img' arial-label='unicornio'>
+    🦄
+  </span>
+)
+
+class Counter extends Component {
+  state = {
+    clicks: 0
+  }
+
+  aumentador = () => {
+    this.setState(() => ({
+      clicks: this.state.clicks + 1
+    }))
+  }
+
+  disminuidor = () => {
+    this.setState(() => ({
+      clicks: this.state.clicks - 1
+    }))
+  }
+  render () {
+    return (
+      <>
+      <button onClick={this.aumentador}>
+        Increment
+      </button>
+      <button onClick={this.disminuidor}>
+        Decrement
+      </button>
+      <h1>
+        { this.state.clicks }
+      </h1>
+      </>
+    )
+  }
+}
+
+class List extends Component {
+  render () {
+    const frutas = [
+      'Fresa',
+      'Sandia',
+      'Manzana',
+      'Papaya'
+    ]
+    return (
+      <>
+        <ul>
+          {frutas.map((fruta) => (
+            <li key={fruta}>
+              {fruta}
+            </li>
+          ))}
+        </ul>
+      </>
+    )
+  }
+}
+
+/* const frutas = [
+  'Fresa',
+  'Sandia',
+  'Manzana',
+  'Papaya'
+] */
+
+class App extends Component {
+  render () {
+    return (
+      <div>
+          <h1>
+            Usando React Developer Toold <Unicorn />
+          </h1>
+          <Counter />
+          <List />
+         {/*  { frutas.map((fruta) => {
+            return (
+              <li key={fruta}>
+                {fruta}
+              </li>
+            ) 
+          }) } */}
+      </div>
+    )
+  }
+}
+
+export default App
+
+// NOTA: En esta clase se trabajo directamente en los tools del nagevador en las pestañas nuevas instaladas (Components y Profiler)
+

@@ -1,0 +1,64 @@
+// Actualizar el estado
+
+import React, { Component } from "react";
+
+class Contador extends Component {
+    state = {
+        clicks: 0
+    }
+    
+    add = () => {
+        this.setState((state, props) => ({
+            clicks: state.clicks + 1
+        }))
+    }
+
+    render () {
+        return (
+            <button onClick={this.add}>
+                Clicks: ({ this.state.clicks })
+            </button>
+        )
+    }
+}
+
+// Ahora un ejemplo con spread operador
+
+class Contador extends Component {
+    state = { // para inicialiar el estado
+        video: {
+            title: 'Simula que aquí estas viendo un vídeo',
+            likes: 0
+        }
+    }
+
+    add = () => { // metodo para actualizar el estado
+        this.setState((state) => ({
+            ...state.video,
+            likes: state.video.likes + 1
+        }))
+    }
+
+
+    render () {
+        return (
+            <div>
+            <h1>
+                {this.state.video.title}
+            </h1>
+            <button onClick={this.add}>
+                Likes: ({this.state.video.likes})
+            </button>
+            </div>
+        )
+    }
+}
+
+
+const App = () => (
+    <div>
+        <Contador />
+    </div>
+)
+
+export default App

@@ -1,0 +1,53 @@
+import React, { useState } from "react"
+import styled from "styled-components"
+
+
+const Header = styled.header` // componente estilizado de styled-components
+  background: #db7093;
+  text-align: center;
+  border-radius: 0.2em;
+  color: #FFF;
+  padding: 0.3em;
+  margin: 0.3em;
+  font-size: 14px;
+`
+
+const Button = styled.button`
+  padding: 0.6em 1.5em;
+  background: ${(props) => props.active ? 'purple' : 'black'}; // Nota: active es la prop de tipo booleano que se pasa al componente (Ver linea 39). Se lee: en caso de que la prop sea true (este active) que le agregue un color purple, en caso contrario que agregue un color black
+  border-radius: 0.1em;
+  color: #FFF;
+  border: 0;
+  margin: 0.4em;
+`
+
+const App = () => {
+   const [ active, setActive ] = useState(false)
+
+   const toggle = () => setActive(!active)
+
+  return (
+    <div>
+        <Header>
+          <h1> 
+            Style Components
+          </h1>
+        </Header>
+        <Button>
+          Un Boton
+        </Button>
+        <Button onClick={toggle} active={active}> 
+          Toggle
+        </Button>
+    </div>
+  )
+}
+
+export default App
+
+// Nota: Este es el componente padre (principal) {}
+
+// Nota: operador terneario ? y :
+// Propiedad o prop de tipo booleano: active
+// Linea 39: el priper active hace referencia a la prop que se define en el backgroun (linea 17), mientras que el segundo active hace referencia al active 
+// que esta almacenada dentro del estado (linea 25)

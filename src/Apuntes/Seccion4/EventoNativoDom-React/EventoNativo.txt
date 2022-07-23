@@ -1,0 +1,24 @@
+import React, { Component } from "react";
+
+class App extends Component {
+
+  manejador = (e) => {
+    e.preventDefault() // Con esto prevenimos el comportamiento por defecto (que al dar click en google, nos renderice a la pagina de google)
+  }
+
+  render () {
+    return (
+      <div>
+        <a 
+        href="https://google.com"
+        onClick={this.manejador}
+        >
+          GOOGLE
+        </a>
+      </div>
+    ) 
+  } 
+}
+
+  export default App
+

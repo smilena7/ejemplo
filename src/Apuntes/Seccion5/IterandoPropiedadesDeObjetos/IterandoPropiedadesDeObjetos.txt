@@ -1,0 +1,42 @@
+import React, { Component } from "react";
+
+class App extends Component {
+  state = {
+    user: {
+      name: 'Valeria Gallegos',
+      country: 'Mexico',
+      twitter: '@valegallos',
+      youtube: 'vale.gallos'
+    }
+  }
+
+  // Para iterar en cada uno de las propiedades de l objeto user:
+  // 1. Al momento de renderizar, se extrae el objeto user con destructurazion que llega desde el estado: const { user } = this.state
+  // 2. Una de las formas de hacer esta operacion es usar el metodo keys de Object el cual recibe un objeto (en este caso user): Object.kyes(user)
+  // 3. Este metodo me va a retornar un arra con los nombres de cada una de las propiedades del objeto: => [ 'nombre', 'country', 'twitter', 'youtube' ]
+  // 4. Por tanto, el valor retornado lo almacenamos en una constante (en este caso keys): const keys = Object.keys(user)
+  // 5. De esta forma ya hemos trasnformado el objeto en un array, el cual ya se puede iterar (ver linea 28)
+
+  render () {
+    const { user } = this.state
+    const keys = Object.keys(user)
+
+    return (
+      <div> 
+        <h3>Iterando propiedades de objetos</h3>
+        <ul>
+          {keys.map((key) => ( // Aqui estariamos retornando las propiedades { key } y el valor de cada propiedades { user[key] }
+            <li>
+              <strong>{ key }</strong>: { user[key] }
+            </li>
+          ))}
+        </ul>
+      </div>
+    )
+  }
+  
+  
+}
+
+export default App
+
